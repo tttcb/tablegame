@@ -21,6 +21,6 @@ public class SystemController {
     @PostMapping("/login")
     public Result login(String username, String password){
         loginService.login(username, password);
-        return Result.success(loginService.createToken(username, password));
+        return Result.success(loginService.createToken());
     }
 }
