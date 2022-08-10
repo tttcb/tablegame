@@ -54,4 +54,7 @@ public class Result extends HashMap<String, Object> {
         return new Result(HttpStatus.INTERNAL_SERVER_ERROR.value(),msg,data);
     }
 
+    public static Result unauthorized(String msg) {
+        return new Result(HttpStatus.UNAUTHORIZED.value(),msg);
+    }
 }

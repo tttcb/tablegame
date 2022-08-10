@@ -1,3 +1,4 @@
+/*
 package com.tablegame.system.fillter;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +9,11 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+*/
 /**
  * @author tu.cb
- */
+ *//*
+
 @Component
 @Slf4j
 @WebFilter(urlPatterns="/*")
@@ -36,3 +39,4 @@ public class AuthFilter implements Filter, Ordered {
         return 0;
     }
 }
+*/
