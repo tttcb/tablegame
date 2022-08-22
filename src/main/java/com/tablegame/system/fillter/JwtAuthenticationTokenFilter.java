@@ -1,11 +1,13 @@
 package com.tablegame.system.fillter;
 
 import com.tablegame.system.service.LoginService;
+import com.tablegame.system.service.RedisServer;
 import com.tablegame.system.utils.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,11 +31,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private LoginService loginService;
     @Autowired
+    private RedisServer redisServer;
+    @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
+
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
+    @Value("${redis.redisPrefix}")
+    private String redisPrefix;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -48,14 +57,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             // 从 JWT 中获取用户名
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
             LOGGER.info("checking username:{}", username);
-
             // SecurityContextHolder 是 SpringSecurity 的一个工具类
             // 保存应用程序中当前使用人的安全上下文
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 根据用户名获取登录用户信息
                 UserDetails userDetails = this.loginService.loadUserByUsername(username);
                 // 验证 token 是否过期
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                if (jwtTokenUtil.validateToken(authToken, userDetails)&&redisServer.getValue(redisPrefix+username).equals(authToken)) {
                     // 将登录用户保存到安全上下文中
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
                             null, userDetails.getAuthorities());

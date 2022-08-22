@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author tu.cb
+ */
 @Slf4j
 public class JwtTokenUtil {
 
@@ -30,7 +33,7 @@ public class JwtTokenUtil {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
-        claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put(CLAIM_KEY_CREATED, System.currentTimeMillis());
         return generateToken(claims);
     }
 

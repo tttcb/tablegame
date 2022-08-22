@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -28,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Result login(@Validated  User users, BindingResult result) {
+    public Result login(@Validated @RequestBody User users, BindingResult result) {
         String token = loginService.login(users.getUsername(), users.getPassword());
         if (token == null) {
             return Result.error("用户名或密码错误");
@@ -53,4 +51,11 @@ public class UserController {
         tokenMap.put("tokenHead", tokenHead);
         return Result.success("操作成功",tokenMap);
     }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
+    public Result test() {
+       return Result.success("");
+    }
+
 }
