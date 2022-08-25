@@ -37,7 +37,9 @@ public class Result extends HashMap<String, Object> {
     public static Result success(String msg) {
         return Result.success(msg,null);
     }
-
+    public static Result success(Object data) {
+        return Result.success("操作成功",data);
+    }
     public static Result success(String msg,Object data) {
         return new Result(HttpStatus.OK.value(),msg,data) ;
     }

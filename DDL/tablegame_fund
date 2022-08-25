@@ -1,6 +1,6 @@
 -- `1`.tablegame_fund definition
 
-CREATE TABLE `tablegame_fund` (
+CREATE TABLE `tabletop_games_fund` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `tablegameId` bigint(20) NOT NULL COMMENT '桌游ID',
   `userId` bigint(20) NOT NULL COMMENT '账户Id',

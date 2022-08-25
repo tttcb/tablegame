@@ -1,13 +1,15 @@
 package com.tablegame.system.common;
 
-import com.tablegame.system.utils.JwtTokenUtil;
-import org.apache.catalina.Role;
 import com.tablegame.system.domain.User;
+import org.apache.catalina.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * @author tu.cb
+ */
 public class AdminUserDetails implements UserDetails {
     private User user;
     private String rolename;
@@ -30,6 +32,10 @@ public class AdminUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getUsername();
+    }
+
+    public String getuserId() {
+        return this.user.id;
     }
 
     @Override
