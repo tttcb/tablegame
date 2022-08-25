@@ -4,8 +4,10 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tablegame.system.common.AdminUserDetails;
 import com.tablegame.system.domain.dto.Favor;
+import com.tablegame.system.domain.dto.Fund;
 import com.tablegame.system.domain.dto.Game;
 import com.tablegame.system.mapper.FavorMapper;
+import com.tablegame.system.mapper.FundMapper;
 import com.tablegame.system.mapper.GameMapper;
 import com.tablegame.system.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private FavorMapper favorMapper;
+
+    @Autowired
+    private FundMapper fundMapper;
 
     @Override
     public List<Game> query(Integer id, String gameName, Integer gameType) {
@@ -62,11 +67,17 @@ public class GameServiceImpl implements GameService {
     @Override
     public int favorite(Integer id) {
         Favor favorgame = Favor.builder().id(id)
-                .userId(((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getuserId())
+                .userId(((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserId())
                 .createTime(DateTime.now())
                 .updateTime(DateTime.now())
                 .createBy(SecurityContextHolder.getContext().getAuthentication().getName())
                 .build();
         return favorMapper.insert(favorgame);
+    }
+
+    @Override
+    public List<Fund> queryFundGames() {
+        QueryWrapper<Fund> query = new QueryWrapper<>();
+        return fundMapper.selectList(query);
     }
 }

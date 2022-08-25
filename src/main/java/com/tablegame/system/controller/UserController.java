@@ -2,7 +2,7 @@ package com.tablegame.system.controller;
 
 import com.tablegame.system.common.Result;
 import com.tablegame.system.service.LoginService;
-import com.tablegame.system.domain.User;
+import com.tablegame.system.domain.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

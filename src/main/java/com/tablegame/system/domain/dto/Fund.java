@@ -1,15 +1,11 @@
 package com.tablegame.system.domain.dto;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -17,11 +13,8 @@ import java.util.Date;
  * @author tu.cb
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@TableName("user_favor")
-public class Favor {
+@TableName("tabletop_games_fund")
+public class Fund {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -31,6 +24,12 @@ public class Favor {
 
     @TableField(value = "userId")
     private Integer userId;
+
+    @TableField(value = "fund_price")
+    private Integer fundPrice;
+
+    @TableField(value = "status")
+    private Integer status;
 
     @TableField(value = "create_by")
     private String createBy;

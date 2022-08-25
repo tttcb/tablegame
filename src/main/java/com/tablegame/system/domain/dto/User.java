@@ -1,4 +1,4 @@
-package com.tablegame.system.domain;
+package com.tablegame.system.domain.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -24,7 +24,7 @@ public class User {
      * ID
      */
     @TableId(type = IdType.AUTO)
-    public String id;
+    public Integer id;
 
     /**
      * 用户名
@@ -44,15 +44,20 @@ public class User {
     @TableField(value = "nick_name")
     public String nickname;
 
+    @TableField(value = "create_by")
     private String createBy;
 
+    @TableField(value = "update_by")
     private String updateBy;
 
+    @TableField(value = "create_time")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
+    @TableField(value = "update_time")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateTime;
 
+    @TableField(value = "del_flag")
     private Integer delFlag;
 }

@@ -1,6 +1,6 @@
 package com.tablegame.system.common;
 
-import com.tablegame.system.domain.User;
+import com.tablegame.system.domain.dto.User;
 import org.apache.catalina.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +34,7 @@ public class AdminUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    public String getuserId() {
+    public Integer getUserId() {
         return this.user.id;
     }
 

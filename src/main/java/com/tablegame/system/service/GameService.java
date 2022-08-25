@@ -1,5 +1,6 @@
 package com.tablegame.system.service;
 
+import com.tablegame.system.domain.dto.Fund;
 import com.tablegame.system.domain.dto.Game;
 
 import java.util.List;
@@ -44,4 +45,10 @@ public interface GameService {
      * @return
      */
     int favorite(Integer id);
+
+    /**
+     * 查询众筹
+     * @return
+     */
+    List<Fund> queryFundGames();
 }

@@ -2,7 +2,7 @@ package com.tablegame.system.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tablegame.system.common.AdminUserDetails;
-import com.tablegame.system.domain.User;
+import com.tablegame.system.domain.dto.User;
 import com.tablegame.system.mapper.UserMapper;
 import com.tablegame.system.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
