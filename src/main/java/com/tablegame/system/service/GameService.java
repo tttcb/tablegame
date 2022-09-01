@@ -23,32 +23,39 @@ public interface GameService {
      * @param game
      * @return
      */
-    int insert(Game game);
+    Integer insert(Game game);
 
     /**
      * 更新
      * @param game
      * @return
      */
-    int update(Game game);
+    Integer update(Game game);
 
     /**
      * 删除
      * @param
      * @return
      */
-    int delete(Integer id);
+    Integer delete(Integer id);
 
     /**
      * 添加为心仪桌游
-     * @param id
+     * @param gameId
      * @return
      */
-    int favorite(Integer id);
+    Integer favorite(Integer gameId);
 
     /**
      * 查询众筹
      * @return
      */
     List<Fund> queryFundGames();
+
+    /**
+     * 发起众筹
+     * @param gameId
+     * @return
+     */
+    Integer insertFundGame(Integer gameId);
 }

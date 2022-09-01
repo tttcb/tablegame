@@ -13,10 +13,11 @@ public class SecurityContext {
     }
 
     public static Integer getUserId() {
-        return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserId();
+        return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
     }
 
     public static String getPassword() {
-        return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getPassword();
+        return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getPassword();
     }
+
 }

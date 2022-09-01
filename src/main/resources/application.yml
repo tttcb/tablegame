@@ -17,7 +17,7 @@ spring:
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: codingmore-admin-secret #JWT加解密使用的密钥
-  expiration: 7200 #JWT的超期限时间(60*60*24*7)
+  expiration: 60 #JWT的超期限时间(60*60*2)
   tokenHead: 'Bearer '  #JWT负载中拿到开头
 secure:
   ignored:

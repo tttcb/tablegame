@@ -55,7 +55,7 @@ public class UserController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
     public Result test() {
-       return Result.success("");
+       return Result.success("success");
     }
 
 }

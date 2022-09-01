@@ -1,6 +1,5 @@
 package com.tablegame.system.domain.dto;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,21 +14,15 @@ import lombok.NoArgsConstructor;
  * @author tu.cb
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user_favor")
-public class Favor extends BaseDTO {
+@Builder
+@TableName("tabletop_games_tag")
+public class Tag extends BaseDTO {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    public Integer id;
 
-    @TableField(value = "tabletop_game_id")
-    private Integer tabletopGameId;
-
-    @TableField(value = "user_id")
-    private Integer userId;
-
-
-
+    @TableField(value = "tag_name")
+    public String name;
 }

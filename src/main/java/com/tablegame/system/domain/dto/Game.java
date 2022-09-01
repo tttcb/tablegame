@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tablegame.system.common.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("tabletop_games")
-public class Game {
+public class Game extends BaseDTO {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -29,12 +30,12 @@ public class Game {
     private String company;
 
     @TableField(value = "price")
-    private Integer price;
+    private Double price;
 
     @TableField(value = "url")
     private String url;
 
-    @TableField(value="content")
+    @TableField(value = "content")
     private String content;
 
     @TableField(value = "fund_persons")
@@ -44,31 +45,16 @@ public class Game {
     private Integer status;
 
     @TableField(value = "tag")
-    private String tag;
+    private Integer tag;
 
     @TableField(value = "play_persons")
     private String playPersons;
 
-    @TableField(value = "game_time")
-    private String gameTime;
+    @TableField(value = "play_time")
+    private String playTime;
 
     @TableField(value = "game_type")
-    private String gameType;
+    private Integer gameType;
 
-    @TableField(value = "create_by")
-    private String createBy;
 
-    @TableField(value = "update_by")
-    private String updateBy;
-
-    @TableField(value = "create_time")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createTime;
-
-    @TableField(value = "update_time")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date updateTime;
-
-    @TableField(value = "del_flag")
-    private Integer delFlag;
 }

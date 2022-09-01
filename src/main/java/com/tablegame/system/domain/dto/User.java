@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tablegame.system.common.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_user")
-public class User {
+public class User extends BaseDTO {
 
     /**
      * ID
@@ -44,20 +45,5 @@ public class User {
     @TableField(value = "nick_name")
     public String nickname;
 
-    @TableField(value = "create_by")
-    private String createBy;
 
-    @TableField(value = "update_by")
-    private String updateBy;
-
-    @TableField(value = "create_time")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createTime;
-
-    @TableField(value = "update_time")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date updateTime;
-
-    @TableField(value = "del_flag")
-    private Integer delFlag;
 }
