@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/tablegames/ta")
+@RequestMapping("/tablegames/tag")
 public class TagController {
 
     @Autowired
