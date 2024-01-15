@@ -7,13 +7,9 @@ spring:
       username: root
       password: 163.com
   application:
-    name: tablegame-system
+    name: GuiGuoHui-system
   profiles:
     active: dev
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: codingmore-admin-secret #JWT加解密使用的密钥
@@ -22,6 +18,4 @@ jwt:
 secure:
   ignored:
     urls: #安全路径白名单
-      - /tablegames/login
-redis:
-  redisPrefix: 'tablegames:user'
+      - /GuiGuoHui/login
