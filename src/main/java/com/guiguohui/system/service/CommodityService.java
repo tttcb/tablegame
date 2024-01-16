@@ -1,9 +1,6 @@
 package com.guiguohui.system.service;
 
 import com.guiguohui.system.domain.dto.Commodity;
-import com.guiguohui.system.domain.dto.Notice;
-import com.guiguohui.system.domain.dto.Shop;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,12 +12,12 @@ public interface CommodityService {
     /**
      * 查询列表
      *
-     * @param id
+     * @param
      * @return
      */
-    List<Commodity> query(Integer id, String commodityName, Integer commodityType,Integer commodityMaxPrice, Integer commodityMinPrice,Integer commoditySeason);
+    List<Commodity> search(String commodityName, Integer commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason);
 
-    List<Commodity> query();
+    List<Commodity> queryAll();
     /**
      * 插入
      * @param commodity
@@ -42,4 +39,5 @@ public interface CommodityService {
      */
     String delete(Integer id);
 
+    Commodity queryById(Integer commodityId);
 }

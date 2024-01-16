@@ -4,10 +4,8 @@ import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.UserService;
 import com.guiguohui.system.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author tu.cb
@@ -19,15 +17,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryByUserId", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryByUserId(Integer userId){
+    public Result queryByUserId(@RequestParam(value = "userId") Integer userId){
         return Result.success(userService.queryByUserId(userId));
     }
-
+    @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
+    @ResponseBody
+    public Result queryAll(){
+        return Result.success(userService.queryAll());
+    }
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(Integer userId){
+    public Result delete(@RequestParam(value = "userId") Integer userId){
         return Result.success(userService.delete(userId));
     }
 
@@ -42,4 +44,12 @@ public class UserController {
     public Result modify (User user){
         return Result.success(userService.modify(user));
     }
+
+
+    @RequestMapping(value = "/resetPassWord", method = RequestMethod.POST)
+    @ResponseBody
+    public Result resetPassWord (@RequestParam(value = "userId") Integer userId, @RequestParam(value = "password") String password){
+        return Result.success(userService.resetPassWord(userId,password));
+    }
+
 }

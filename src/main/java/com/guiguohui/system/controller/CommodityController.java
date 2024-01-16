@@ -19,16 +19,22 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
-    public Result query(@RequestParam(
-            value = "commodityId", required = false) Integer commodityId,
-                        @RequestParam(value = "commodityName", required = false) String commodityName,
-                        @RequestParam(value = "commodityType", required = false) Integer commodityType,
-                        @RequestParam(value = "commodityMaxPrice", required = false) Integer commodityMaxPrice,
-                        @RequestParam(value = "commodityMinPrice", required = false) Integer commodityMinPrice,
-                        @RequestParam(value = "commodityseason", required = false) Integer commoditySeason) {
-        return Result.success(commodityService.query(commodityId, commodityName, commodityType,commodityMaxPrice,commodityMinPrice,commoditySeason));
+    public Result search(
+            @RequestParam(value = "commodityName", required = false) String commodityName,
+            @RequestParam(value = "commodityType", required = false) Integer commodityType,
+            @RequestParam(value = "commodityMaxPrice", required = false) Integer commodityMaxPrice,
+            @RequestParam(value = "commodityMinPrice", required = false) Integer commodityMinPrice,
+            @RequestParam(value = "commodityseason", required = false) Integer commoditySeason) {
+        return Result.success(commodityService.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason));
+    }
+
+    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
+    @ResponseBody
+    public Result queryById(@RequestParam(
+            value = "commodityId", required = false) Integer commodityId) {
+        return Result.success(commodityService.queryById(commodityId));
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

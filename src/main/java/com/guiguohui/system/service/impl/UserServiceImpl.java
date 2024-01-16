@@ -9,6 +9,7 @@ import com.guiguohui.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.guiguohui.system.common.Parameter.USER_ACTIVE;
@@ -26,18 +27,7 @@ public class UserServiceImpl implements UserService {
         if(userId == null) {
             throw new RuntimeException( "用户ID不能为空");
         }
-        User user = userMapper.selectById(userId);
-        return User.builder()
-                .username(user.getUsername())
-                .address(user.getAddress())
-                .id(user.getId())
-                .phone(user.getPhone())
-                .email(user.getEmail())
-                .lastTime(user.getLastTime())
-                .nickname(user.getNickname())
-                .role(user.getRole())
-                .status(user.getStatus())
-                .build();
+        return userMapper.selectById(userId);
     }
 
     @Override
@@ -83,5 +73,17 @@ public class UserServiceImpl implements UserService {
         }else {
             return "修改用户失败";
         }
+    }
+
+    @Override
+    public List<User> queryAll() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", USER_ACTIVE);
+        return userMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public String resetPassWord(Integer userId, String password) {
+        return null;
     }
 }

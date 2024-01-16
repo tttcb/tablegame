@@ -23,32 +23,27 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityMapper commodityMapper;
 
 
-    @Override
-    public List<Commodity> query(Integer id, String commodityName, Integer commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason) {
+    public List<Commodity> search(String commodityName, Integer commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason) {
         QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
-        if (id != null) {
-            queryWrapper.eq("id", id);
-        } else {
-            if (commodityName != null) {
-                queryWrapper.like("name", commodityName);
-            }
-            if (commodityType != null) {
-                queryWrapper.eq("type", commodityType);
-            }
-            if (commodityMaxPrice != null && commodityMinPrice != null) {
-                queryWrapper.between("price", commodityMaxPrice,commodityMinPrice);
-            }
-            if (commoditySeason != null) {
-                queryWrapper.like("season", commoditySeason);
-            }
+        if (commodityName != null) {
+            queryWrapper.like("name", "%"+commodityName+"%");
+        }
+        if (commodityType != null) {
+            queryWrapper.eq("type", commodityType);
+        }
+        if (commodityMaxPrice != null && commodityMinPrice != null) {
+            queryWrapper.between("price", commodityMaxPrice, commodityMinPrice);
+        }
+        if (commoditySeason != null) {
+            queryWrapper.like("season","%"+ commoditySeason+"%");
         }
         return commodityMapper.selectList(queryWrapper);
     }
 
     @Override
-    public List<Commodity> query() {
-       return query(null,null,null,null,null,null);
+    public List<Commodity> queryAll() {
+        return search(null, null, null, null, null);
     }
 
 
@@ -91,7 +86,16 @@ public class CommodityServiceImpl implements CommodityService {
         commodityMapper.update(Commodity.builder()
                 .status(COMMODITY_DELETE)
                 .build(), queryWrapper);
-        return "删除用户成功";
+        return "删除商品成功";
+    }
+
+    @Override
+    public Commodity queryById(Integer commodityId) {
+        if (commodityId != null) {
+            return commodityMapper.selectById(commodityId);
+        } else {
+            throw new IllegalArgumentException("id不能为空");
+        }
     }
 
 
