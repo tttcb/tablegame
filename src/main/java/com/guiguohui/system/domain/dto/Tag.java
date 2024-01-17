@@ -22,6 +22,10 @@ public class Tag  {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "tag_name")
+    @TableField(value = "name")
     private String name;
+
+    @TableField(value = "status")
+    private Integer status;
+
 }

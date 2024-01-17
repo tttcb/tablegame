@@ -1,0 +1,88 @@
+package com.guiguohui.system.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.domain.dto.Shop;
+import com.guiguohui.system.domain.dto.Shop;
+import com.guiguohui.system.mapper.ShopMapper;
+import com.guiguohui.system.mapper.ShopMapper;
+import com.guiguohui.system.service.ShopService;
+import com.guiguohui.system.service.ShopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+
+import static com.guiguohui.system.common.Parameter.COMMODITY_ACTIVE;
+import static com.guiguohui.system.common.Parameter.COMMODITY_DELETE;
+
+/**
+ * @author tu.cb
+ */
+@Service
+public class ShopServiceImpl implements ShopService {
+
+    @Autowired
+    private ShopMapper shopMapper;
+
+
+    public List<Shop> search(String shopName) {
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", COMMODITY_ACTIVE);
+        if (shopName != null) {
+            queryWrapper.like("name", "%"+shopName+"%");
+        }
+        return shopMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<Shop> queryAll() {
+        return search(null);
+    }
+
+
+    @Override
+    public String insert(Shop shop) {
+        Integer result = shopMapper.insert(shop);
+        if (result.equals(1)) {
+            return "新增店铺成功";
+        } else {
+            return "新增店铺失败";
+        }
+    }
+
+    @Override
+    public String update(Shop shop) {
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", shop.getId());
+        queryWrapper.eq("status", COMMODITY_ACTIVE);
+        Integer result = shopMapper.update(shop, queryWrapper);
+        if (result.equals(1)) {
+            return "更新店铺信息成功";
+        } else {
+            return "更新店铺信息失败";
+        }
+    }
+
+    @Override
+    public String delete(Integer id) {
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        if (id == null) {
+            return "店铺ID不能为空";
+        }
+        queryWrapper.eq("Id", id);
+        if (shopMapper.selectById(id) == null) {
+            return "店铺不存在";
+        }
+        if (Objects.equals(shopMapper.selectById(id).getStatus(), COMMODITY_DELETE)) {
+            return "店铺已经被删除";
+        }
+        shopMapper.update(Shop.builder()
+                .status(COMMODITY_DELETE)
+                .build(), queryWrapper);
+        return "删除店铺成功";
+    }
+
+
+
+}

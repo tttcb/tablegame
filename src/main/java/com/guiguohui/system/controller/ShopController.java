@@ -2,7 +2,7 @@ package com.guiguohui.system.controller;
 
 import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Shop;
-import com.guiguohui.system.service.CommodityService;
+import com.guiguohui.system.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,29 +15,30 @@ import org.springframework.web.bind.annotation.*;
 public class ShopController {
 
     @Autowired
-    private CommodityService commodityService;
+    private ShopService shopService;
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
-    public Result query(@RequestParam(value = "shopId",required = false) Integer shopId, @RequestParam(value ="shopName",required = false) String gameName, @RequestParam(value ="shopType",required = false) Integer gameType) {
-        return Result.success(commodityService.query(shopId, gameName, gameType));
+    public Result search(
+            @RequestParam(value = "shopName", required = false) String shopName) {
+        return Result.success(shopService.search(shopName));
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public Result insert(@Validated @RequestBody Shop shop) {
-        return Result.success(commodityService.insert(shop));
+        return Result.success(shopService.insert(shop));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     public Result update(@Validated @RequestBody Shop shop) {
-        return Result.success(commodityService.update(shop));
+        return Result.success(shopService.update(shop));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
     public Result delete(@RequestParam("shopId") Integer shopId) {
-        return Result.success(commodityService.delete(shopId));
+        return Result.success(shopService.delete(shopId));
     }
 }

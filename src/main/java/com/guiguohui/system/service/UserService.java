@@ -25,4 +25,6 @@ public interface UserService {
     List<User> queryAll();
 
     String resetPassWord(Integer userId, String password);
+
+    String share();
 }

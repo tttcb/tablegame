@@ -86,4 +86,9 @@ public class UserServiceImpl implements UserService {
     public String resetPassWord(Integer userId, String password) {
         return null;
     }
+
+    @Override
+    public String share() {
+        return "购买体验十分好!,快来桂果汇购买水果吧！www.guiguohui.com";
+    }
 }

@@ -16,4 +16,5 @@ public class Parameter {
     public static final Integer ORDERCOMMODITY_DELETE =0;
     public static final Integer ORDERCOMMODITY_ACTIVE =1;
 
+
 }

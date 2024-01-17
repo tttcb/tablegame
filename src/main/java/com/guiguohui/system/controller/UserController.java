@@ -51,5 +51,10 @@ public class UserController {
     public Result resetPassWord (@RequestParam(value = "userId") Integer userId, @RequestParam(value = "password") String password){
         return Result.success(userService.resetPassWord(userId,password));
     }
+    @RequestMapping(value = "/share", method = RequestMethod.POST)
+    @ResponseBody
+    public Result share (){
+        return Result.success(userService.share());
+    }
 
 }

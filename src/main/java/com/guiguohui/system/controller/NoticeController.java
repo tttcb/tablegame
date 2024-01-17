@@ -1,6 +1,7 @@
 package com.guiguohui.system.controller;
 
 import com.guiguohui.system.common.Result;
+import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
 import com.guiguohui.system.service.NoticeService;
@@ -17,7 +18,7 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/alreadly", method = RequestMethod.PUT)
     @ResponseBody
     public Result alreadly(@RequestParam("Id") Integer id) {
         return Result.success(noticeService.alreadly(id));
@@ -39,6 +40,17 @@ public class NoticeController {
     @ResponseBody
     public Result delete(@RequestParam("Id") Integer id) {
         return Result.success(noticeService.delete(id));
+    }
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
+    public Result insert(@Validated @RequestBody Notice notice) {
+        return Result.success(noticeService.insert(notice));
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @ResponseBody
+    public Result update(@Validated @RequestBody Notice notice) {
+        return Result.success(noticeService.update(notice));
     }
 
 

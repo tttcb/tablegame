@@ -44,7 +44,7 @@ public class Commodity {
     private String content;
 
     @TableField(value = "tag")
-    private Integer tag;
+    private String tag;
 
     @TableField(value = "status")
     private Integer status;

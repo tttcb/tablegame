@@ -29,6 +29,9 @@ public class Message {
     @TableField(value = "content")
     private String content;
 
+    @TableField(value = "status")
+    private Integer status;
+
     @TableField(value = "message_id")
     private Integer messageId;
 

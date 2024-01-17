@@ -37,6 +37,13 @@ public class CommodityController {
         return Result.success(commodityService.queryById(commodityId));
     }
 
+    @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
+    @ResponseBody
+    public Result queryAll(){
+        return Result.success(commodityService.queryAll());
+    }
+
+
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     public Result insert(@Validated @RequestBody Commodity commodity) {
