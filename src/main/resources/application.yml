@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      url: jdbc:mysql://60.204.207.251:3306/guiguohui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
       username: root
       password: 163.com
   application:
@@ -18,4 +18,8 @@ jwt:
 secure:
   ignored:
     urls: #安全路径白名单
-      - /**
+      - /swagger-resources/**
+      - /guiguohui/login
+      - /v3/api-docs/**
+      - /webjars/**
+      - /doc.html

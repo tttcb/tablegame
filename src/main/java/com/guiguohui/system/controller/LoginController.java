@@ -32,8 +32,8 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("登录")
-    public Map<String, String> login(@Validated @RequestBody User users, BindingResult result) {
-        String token = loginService.login(users.getUsername(), users.getPassword());
+    public Map<String, String> login(String username, String password) {
+        String token = loginService.login(username, password);
         if (token == null) {
             throw new IllegalStateException("账号或者密码错误");
         }

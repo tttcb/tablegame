@@ -79,7 +79,7 @@ public class LoginService {
             UserDetails userDetails = loadUserByUsername(username);
             // 验证密码
             System.out.println(passwordEncoder.encode(password));
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            if (password==userDetails.getPassword()) {
                 throw new BadCredentialsException("密码不正确");
             }
             // 返回 JWT

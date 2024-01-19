@@ -1,14 +1,16 @@
 package com.guiguohui.system.domain.dto;
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @Builder
@@ -39,25 +41,30 @@ public class User  {
      * 昵称
      */
     @TableField(value = "nick_name")
+    @ApiParam("昵称")
     private String nickname;
 
     /**
      * 地址
      */
     @TableField(value = "address")
+    @ApiParam("收货地址")
     private String[] address;
 
     @TableField(value = "phone")
+    @ApiParam("电话号码")
     private String phone;
 
     @TableField(value = "email")
     private String email;
 
     @TableField(value = "role")
-    private Integer role;
+    @ApiParam("角色")
+    private String role;
 
     @TableField(value = "last_time")
-    private DateTime lastTime;
+    @ApiParam("上次登录的时间")
+    private Date lastTime;
 
     @TableField(value = "status")
     private Integer status;

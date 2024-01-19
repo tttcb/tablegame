@@ -42,7 +42,7 @@ public class CriticizeController {
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("回复评论")
-    public String reply(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
+    public String reply(@RequestParam String content,@RequestParam("criticizeId") Integer criticizeId) {
         return criticizeService.reply(content,criticizeId);
     }
 
@@ -50,7 +50,7 @@ public class CriticizeController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改评论")
-    public String update(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
+    public String update(@RequestParam String content,@RequestParam("criticizeId") Integer criticizeId) {
         return criticizeService.update(content,criticizeId);
     }
 

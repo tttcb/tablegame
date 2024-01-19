@@ -50,7 +50,7 @@ public class MessageController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改留言")
-    public String update(@RequestBody String content,@RequestParam("messageId") Integer messageId) {
+    public String update(@RequestParam String content,@RequestParam("messageId") Integer messageId) {
         return messageService.update(content,messageId);
     }
 
