@@ -1,15 +1,15 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
-import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
-import com.guiguohui.system.service.CommodityService;
 import com.guiguohui.system.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/guiguohui/Order")
@@ -22,55 +22,64 @@ public class OrderController {
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryById(@RequestParam Integer id) {
-        return Result.success(orderService.queryById(id));
+    @ApiOperation("根据Id查询订单详情")
+    public Order queryById(@RequestParam Integer id) {
+        return orderService.queryById(id);
     }
 
     @RequestMapping(value = "/queryByUserId", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryByUserId(@RequestParam("userId") Integer userId) {
-        return Result.success(orderService.queryByUserId(userId));
+    @ApiOperation("根据用户ID查询订单详情")
+    public List<Order> queryByUserId(@RequestParam("userId") Integer userId) {
+        return orderService.queryByUserId(userId);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Result insert(@Validated @RequestBody Order order) {
-        return Result.success(orderService.insert(order));
+    @ApiOperation("新增订单")
+    public String insert(@Validated @RequestBody Order order) {
+        return orderService.insert(order);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@Validated @RequestBody Order order) {
-        return Result.success(orderService.update(order));
+    @ApiOperation("更新订单")
+    public String update(@Validated @RequestBody Order order) {
+        return orderService.update(order);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("commodityId") Integer id) {
-        return Result.success(orderService.delete(id));
+    @ApiOperation("删除订单")
+    public String delete(@RequestParam("commodityId") Integer id) {
+        return orderService.delete(id);
     }
 
     @RequestMapping(value = "/addCommodity", method = RequestMethod.POST)
     @ResponseBody
-    public Result addCommodity(@RequestParam("commodityId") Integer id, @RequestParam("count") Integer count) {
-        return Result.success(orderService.addCommodity(id, count));
+    @ApiOperation("添加购物车商品")
+    public String addCommodity(@RequestParam("commodityId") Integer id, @RequestParam("count") Integer count) {
+        return orderService.addCommodity(id, count);
     }
 
     @RequestMapping(value = "/deleteCommodity", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result deleteCommodity(@RequestParam Integer id) {
-        return Result.success(orderService.deleteCommodity(id));
+    @ApiOperation("删除购物车商品")
+    public String deleteCommodity(@RequestParam Integer id) {
+        return orderService.deleteCommodity(id);
     }
 
     @RequestMapping(value = "/queryGouWuChe", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryGouWuChe(@RequestParam("userId") Integer userId) {
-        return Result.success(orderService.queryGouWuChe(userId));
+    @ApiOperation("查询购物车商品")
+    public List<OrderCommodity> queryGouWuChe(@RequestParam("userId") Integer userId) {
+        return orderService.queryGouWuChe(userId);
     }
     @RequestMapping(value = "/updateGouWuChe", method = RequestMethod.PUT)
     @ResponseBody
-    public Result updateGouWuChe(@Validated @RequestBody OrderCommodity orderCommodity) {
-        return Result.success(orderService.updateGouWuChe(orderCommodity));
+    @ApiOperation("修改购物车商品数量")
+    public String updateGouWuChe(@Validated @RequestBody OrderCommodity orderCommodity) {
+        return orderService.updateGouWuChe(orderCommodity);
     }
 
 

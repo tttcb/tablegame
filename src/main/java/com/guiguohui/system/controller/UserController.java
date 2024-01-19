@@ -2,11 +2,12 @@ package com.guiguohui.system.controller;
 
 import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.UserService;
-import com.guiguohui.system.common.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author tu.cb
@@ -21,42 +22,49 @@ public class UserController {
 
     @RequestMapping(value = "/queryByUserId", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryByUserId(@RequestParam(value = "userId") Integer userId){
-        return Result.success(userService.queryByUserId(userId));
+    @ApiOperation("根据用户ID查询用户详情")
+    public User queryByUserId(@RequestParam(value = "userId") Integer userId){
+        return userService.queryByUserId(userId);
     }
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll(){
-        return Result.success(userService.queryAll());
+    @ApiOperation("查询所有用户")
+    public List<User> queryAll(){
+        return userService.queryAll();
     }
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam(value = "userId") Integer userId){
-        return Result.success(userService.delete(userId));
+    @ApiOperation("删除用户")
+    public String delete(@RequestParam(value = "userId") Integer userId){
+        return userService.delete(userId);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Result add(User user){
-        return Result.success(userService.add(user));
+    @ApiOperation("新增用户")
+    public String add(User user){
+        return userService.add(user);
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
-    public Result modify (User user){
-        return Result.success(userService.modify(user));
+    @ApiOperation("修改用户信息")
+    public String modify (User user){
+        return userService.modify(user);
     }
 
 
     @RequestMapping(value = "/resetPassWord", method = RequestMethod.POST)
     @ResponseBody
-    public Result resetPassWord (@RequestParam(value = "userId") Integer userId, @RequestParam(value = "password") String password){
-        return Result.success(userService.resetPassWord(userId,password));
+    @ApiOperation("重置密码")
+    public String resetPassWord (@RequestParam(value = "userId") Integer userId, @RequestParam(value = "password") String password){
+        return userService.resetPassWord(userId,password);
     }
     @RequestMapping(value = "/share", method = RequestMethod.POST)
     @ResponseBody
-    public Result share (){
-        return Result.success(userService.share());
+    @ApiOperation("分享")
+    public String share (){
+        return userService.share();
     }
 
 }

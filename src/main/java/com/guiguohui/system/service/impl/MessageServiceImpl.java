@@ -25,10 +25,11 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public List<Message> queryAll() {
+    public List<Message> queryAll(Integer shopId) {
         QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         queryWrapper.eq("message_id",null);
+        queryWrapper.eq("shop_id",shopId);
         return messageMapper.selectList(queryWrapper);
     }
 
@@ -42,11 +43,12 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public String insert(String content) {
+    public String insert(String content,Integer shopId) {
         Integer result = messageMapper.insert(Message.builder()
                         .content(content)
                         .userId(SecurityContext.getUserId())
                         .status(COMMODITY_ACTIVE)
+                        .shopId(shopId)
                 .build());
         if (result.equals(1)) {
             return "新增评价成功";

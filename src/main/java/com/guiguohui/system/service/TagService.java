@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface TagService {
 
-    Integer insert(String name);
+    String insert(String name);
 
     String delete(Integer id);
 

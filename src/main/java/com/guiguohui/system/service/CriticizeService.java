@@ -5,7 +5,7 @@ import com.guiguohui.system.domain.dto.Criticize;
 import java.util.List;
 
 public interface CriticizeService {
-    List<Criticize> queryAll();
+    List<Criticize> queryAll(Integer commodityId);
 
     String insert(String content);
 

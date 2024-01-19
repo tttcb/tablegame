@@ -28,6 +28,9 @@ public class Criticize {
     @TableField(value = "status")
     private Integer status;
 
+    @TableField(value = "commodity_id")
+    private Integer commodityId;
+
     @TableField(value = "criticize_id")
     private Integer criticizeId;
 

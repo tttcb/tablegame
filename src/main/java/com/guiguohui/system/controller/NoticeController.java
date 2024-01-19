@@ -1,15 +1,14 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Notice;
-import com.guiguohui.system.domain.dto.Order;
-import com.guiguohui.system.domain.dto.OrderCommodity;
 import com.guiguohui.system.service.NoticeService;
-import com.guiguohui.system.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/guiguohui/notice")
@@ -22,37 +21,43 @@ public class NoticeController {
 
     @RequestMapping(value = "/alreadly", method = RequestMethod.PUT)
     @ResponseBody
-    public Result alreadly(@RequestParam("Id") Integer id) {
-        return Result.success(noticeService.alreadly(id));
+    @ApiOperation("已读")
+    public String alreadly(@RequestParam("Id") Integer id) {
+        return noticeService.alreadly(id);
     }
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll() {
-        return Result.success(noticeService.queryAll());
+    @ApiOperation("查询所有通知")
+    public List<Notice> queryAll() {
+        return noticeService.queryAll();
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryById(@RequestParam("Id") Integer id) {
-        return Result.success(noticeService.queryById(id));
+    @ApiOperation("根据Id查询通知")
+    public Notice queryById(@RequestParam("Id") Integer id) {
+        return noticeService.queryById(id);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("Id") Integer id) {
-        return Result.success(noticeService.delete(id));
+    @ApiOperation("删除通知")
+    public String delete(@RequestParam("Id") Integer id) {
+        return noticeService.delete(id);
     }
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Result insert(@Validated @RequestBody Notice notice) {
-        return Result.success(noticeService.insert(notice));
+    @ApiOperation("新增通知")
+    public String insert(@Validated @RequestBody Notice notice) {
+        return noticeService.insert(notice);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@Validated @RequestBody Notice notice) {
-        return Result.success(noticeService.update(notice));
+    @ApiOperation("修改通知")
+    public String update(@Validated @RequestBody Notice notice) {
+        return noticeService.update(notice);
     }
 
 

@@ -1,14 +1,14 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Commodity;
-import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.service.CommodityService;
 import io.swagger.annotations.Api;
-import org.assertj.core.util.Maps;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author tu.cb
@@ -23,50 +23,57 @@ public class CommodityController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
-    public Result search(
+    @ApiOperation("搜索商品")
+    public List<Commodity> search(
             @RequestParam(value = "commodityName", required = false) String commodityName,
             @RequestParam(value = "commodityType", required = false) Integer commodityType,
             @RequestParam(value = "commodityMaxPrice", required = false) Integer commodityMaxPrice,
             @RequestParam(value = "commodityMinPrice", required = false) Integer commodityMinPrice,
             @RequestParam(value = "commodityseason", required = false) Integer commoditySeason) {
-        return Result.success(commodityService.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason));
+        return commodityService.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryById(@RequestParam(
+    @ApiOperation("根据商品ID查找")
+    public Commodity queryById(@RequestParam(
             value = "commodityId", required = false) Integer commodityId) {
-        return Result.success(commodityService.queryById(commodityId));
+        return commodityService.queryById(commodityId);
     }
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll(){
-        return Result.success(commodityService.queryAll());
+    @ApiOperation("查询所有商品")
+    public List<Commodity> queryAll(){
+        return commodityService.queryAll();
     }
 
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Result insert(@Validated @RequestBody Commodity commodity) {
-        return Result.success(commodityService.insert(commodity));
+    @ApiOperation("新增商品")
+    public String insert(@Validated @RequestBody Commodity commodity) {
+        return commodityService.insert(commodity);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@Validated @RequestBody Commodity commodity) {
-        return Result.success(commodityService.update(commodity));
+    @ApiOperation("修改商品信息")
+    public String update(@Validated @RequestBody Commodity commodity) {
+        return commodityService.update(commodity);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("commodityId") Integer commodityId) {
-        return Result.success(commodityService.delete(commodityId));
+    @ApiOperation("删除商品")
+    public String delete(@RequestParam("commodityId") Integer commodityId) {
+        return commodityService.delete(commodityId);
     }
 
     @RequestMapping(value = "/changeStock", method = RequestMethod.POST)
     @ResponseBody
-    public Result changeStock(@RequestParam("count") Integer count,@RequestParam("commodityId") Integer commodityId) {
-        return Result.success(commodityService.changeStock(count,commodityId));
+    @ApiOperation("修改库存")
+    public String changeStock(@RequestParam("count") Integer count,@RequestParam("commodityId") Integer commodityId) {
+        return commodityService.changeStock(count,commodityId);
     }
 }

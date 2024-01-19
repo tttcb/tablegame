@@ -5,6 +5,7 @@ CREATE TABLE `message` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `message_id` bigint(20) NOT NULL COMMENT '用户ID',
   `content` varchar(200) NOT NULL COMMENT '内容',
+  `shop_id` bigint(20) NOT NULL COMMENT '商店ID',
   `status` tinyint(10) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

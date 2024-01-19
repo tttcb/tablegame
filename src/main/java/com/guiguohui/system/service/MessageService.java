@@ -5,9 +5,9 @@ import com.guiguohui.system.domain.dto.Message;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> queryAll();
+    List<Message> queryAll(Integer shopId);
 
-    String insert(String content);
+    String insert(String content,Integer shopId);
 
     String update(String content,Integer messageId);
 

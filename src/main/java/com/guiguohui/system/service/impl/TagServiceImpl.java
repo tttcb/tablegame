@@ -23,11 +23,16 @@ public class TagServiceImpl implements TagService {
     public TagMapper tagMapper;
 
     @Override
-    public Integer insert(String name) {
+    public String insert(String name) {
         Tag tag = Tag.builder()
                 .name(name)
                 .build();
-        return tagMapper.insert(tag);
+        Integer result = tagMapper.insert(tag);
+        if (result.equals(1)) {
+            return "更新标签成功";
+        } else {
+            return "更新标签失败";
+        }
 
     }
     @Override
@@ -36,9 +41,9 @@ public class TagServiceImpl implements TagService {
         queryWrapper.eq("id", id);
         Integer result = tagMapper.update(Tag.builder().name(name).build(), queryWrapper);
         if (result.equals(1)) {
-            return "更新通知成功";
+            return "更新标签成功";
         } else {
-            return "更新通知失败";
+            return "更新标签失败";
         }
     }
 

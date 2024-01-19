@@ -1,13 +1,13 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
-import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Criticize;
-import com.guiguohui.system.service.CallBackService;
 import com.guiguohui.system.service.CriticizeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/guiguohui/criticize")
@@ -20,38 +20,44 @@ public class CriticizeController {
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll() {
-        return Result.success(criticizeService.queryAll());
+    @ApiOperation("查询所有评论")
+    public List<Criticize> queryAll(Integer commodityId) {
+        return criticizeService.queryAll(commodityId);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryById(Integer criticizeId) {
-        return Result.success(criticizeService.queryById(criticizeId));
+    @ApiOperation("根据评论ID查询")
+    public List<Criticize> queryById(Integer criticizeId) {
+        return criticizeService.queryById(criticizeId);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Result insert(@RequestBody String content) {
-        return Result.success(criticizeService.insert(content));
+    @ApiOperation("新增评论")
+    public String insert(@RequestBody String content) {
+        return criticizeService.insert(content);
     }
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)
     @ResponseBody
-    public Result reply(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
-        return Result.success(criticizeService.reply(content,criticizeId));
+    @ApiOperation("回复评论")
+    public String reply(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
+        return criticizeService.reply(content,criticizeId);
     }
 
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
-        return Result.success(criticizeService.update(content,criticizeId));
+    @ApiOperation("修改评论")
+    public String update(@RequestBody String content,@RequestParam("criticizeId") Integer criticizeId) {
+        return criticizeService.update(content,criticizeId);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("Id") Integer id) {
-        return Result.success(criticizeService.delete(id));
+    @ApiOperation("删除评论")
+    public String delete(@RequestParam("Id") Integer id) {
+        return criticizeService.delete(id);
     }
 }

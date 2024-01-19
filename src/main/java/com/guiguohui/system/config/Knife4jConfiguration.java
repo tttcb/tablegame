@@ -18,8 +18,8 @@ public class Knife4jConfiguration {
         String groupName="3.X版本";
         Docket docket=new Docket(DocumentationType.OAS_30)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("这是knife4jAPI ")
-                        .description("# 这里记录服务端所有的接口的入参，出参等等信息")
+                        .title("knife4jAPI ")
+                        .description("")
                         .termsOfServiceUrl("")
                         .version("3.0")
                         .build())

@@ -1,10 +1,13 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
+import com.guiguohui.system.domain.dto.Tag;
 import com.guiguohui.system.service.TagService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/guiguohui/tag")
@@ -17,26 +20,30 @@ public class TagController {
 
     @ResponseBody
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public Result insert(@RequestParam("name") String name){
-        return Result.success(tagService.insert(name));
+    @ApiOperation("新增标签")
+    public String insert(@RequestParam("name") String name){
+        return tagService.insert(name);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@RequestParam("Id") Integer id,@RequestParam("name") String name) {
-        return Result.success(tagService.update(id,name));
+    @ApiOperation("更新标签信息")
+    public String update(@RequestParam("Id") Integer id,@RequestParam("name") String name) {
+        return tagService.update(id,name);
     }
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll() {
-        return Result.success(tagService.queryAll());
+    @ApiOperation("查询所有标签")
+    public List<Tag> queryAll() {
+        return tagService.queryAll();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("Id") Integer id) {
-        return Result.success(tagService.delete(id));
+    @ApiOperation("删除标签")
+    public String delete(@RequestParam("Id") Integer id) {
+        return tagService.delete(id);
     }
 
 }

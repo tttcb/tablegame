@@ -26,10 +26,11 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
     @Override
-    public List<Criticize> queryAll() {
+    public List<Criticize> queryAll(Integer commodityId) {
         QueryWrapper<Criticize> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         queryWrapper.eq("criticize_id",null);
+        queryWrapper.eq("commodity_id",commodityId);
         return criticizeMapper.selectList(queryWrapper);
     }
 

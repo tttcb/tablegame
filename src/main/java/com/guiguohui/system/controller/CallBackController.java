@@ -1,14 +1,13 @@
 package com.guiguohui.system.controller;
 
-import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Callback;
-import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.service.CallBackService;
-import com.guiguohui.system.service.TagService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/guiguohui/callback")
@@ -21,25 +20,28 @@ public class CallBackController {
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
-    public Result queryAll() {
-        return Result.success(callBackService.queryAll());
+    @ApiOperation("查询所有反馈")
+    public List<Callback> queryAll() {
+        return callBackService.queryAll();
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Result insert(@RequestBody Callback callback) {
-        return Result.success(callBackService.insert(callback));
+    @ApiOperation("新增反馈")
+    public String insert(@RequestBody Callback callback) {
+        return callBackService.insert(callback);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public Result update(@RequestBody Callback callback) {
-        return Result.success(callBackService.update(callback));
+    @ApiOperation("修改反馈")
+    public String update(@RequestBody Callback callback) {
+        return callBackService.update(callback);
     }
-
+    @ApiOperation("删除反馈")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public Result delete(@RequestParam("Id") Integer id) {
-        return Result.success(callBackService.delete(id));
+    public String delete(@RequestParam("Id") Integer id) {
+        return callBackService.delete(id);
     }
 }
