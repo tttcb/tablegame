@@ -28,6 +28,9 @@ public class Shop {
     @TableField(value = "type")
     private Integer type;
 
+    @TableField(value = "content")
+    private String content;
+
     @TableField(value = "user_id")
     private Integer userId;
 

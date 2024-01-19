@@ -4,6 +4,7 @@ import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.service.CommodityService;
+import io.swagger.annotations.Api;
 import org.assertj.core.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(value = "/guiguohui/commodity")
+@Api(tags = "商品相关接口")
 public class CommodityController {
 
     @Autowired
@@ -60,5 +62,11 @@ public class CommodityController {
     @ResponseBody
     public Result delete(@RequestParam("commodityId") Integer commodityId) {
         return Result.success(commodityService.delete(commodityId));
+    }
+
+    @RequestMapping(value = "/changeStock", method = RequestMethod.POST)
+    @ResponseBody
+    public Result changeStock(@RequestParam("count") Integer count,@RequestParam("commodityId") Integer commodityId) {
+        return Result.success(commodityService.changeStock(count,commodityId));
     }
 }

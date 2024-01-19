@@ -3,6 +3,7 @@ package com.guiguohui.system.controller;
 import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.LoginService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/guiguohui")
+@Api(tags = "登录相关接口")
 public class LoginController {
     @Autowired
     private LoginService loginService;

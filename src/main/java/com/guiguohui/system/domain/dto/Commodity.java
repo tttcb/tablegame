@@ -43,6 +43,9 @@ public class Commodity {
     @TableField(value = "content")
     private String content;
 
+    @TableField(value = "stock")
+    private Integer stock;
+
     @TableField(value = "tag")
     private String tag;
 

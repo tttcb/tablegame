@@ -18,4 +18,4 @@ jwt:
 secure:
   ignored:
     urls: #安全路径白名单
-      - /GuiGuoHui/login
+      - /**

@@ -98,5 +98,18 @@ public class CommodityServiceImpl implements CommodityService {
         }
     }
 
+    @Override
+    public String changeStock(Integer count,Integer id) {
+        QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        queryWrapper.eq("status", COMMODITY_ACTIVE);
+        Integer result = commodityMapper.update(Commodity.builder().stock(count).build(), queryWrapper);
+        if (result.equals(1)) {
+            return "更新库存成功";
+        } else {
+            return "更新库存失败";
+        }
+    }
+
 
 }

@@ -6,25 +6,27 @@ import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
 import com.guiguohui.system.service.CommodityService;
 import com.guiguohui.system.service.OrderService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/Order")
+@Api(tags = "订单、购物车相关接口")
 public class OrderController {
 
 
     @Autowired
     private OrderService orderService;
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
     public Result queryById(@RequestParam Integer id) {
         return Result.success(orderService.queryById(id));
     }
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryByUserId", method = RequestMethod.GET)
     @ResponseBody
     public Result queryByUserId(@RequestParam("userId") Integer userId) {
         return Result.success(orderService.queryByUserId(userId));

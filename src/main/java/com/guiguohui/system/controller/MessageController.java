@@ -2,11 +2,13 @@ package com.guiguohui.system.controller;
 
 import com.guiguohui.system.common.Result;
 import com.guiguohui.system.service.MessageService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/message")
+@Api(tags = "留言相关接口")
 public class MessageController {
 
     @Autowired

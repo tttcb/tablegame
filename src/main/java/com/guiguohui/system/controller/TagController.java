@@ -2,11 +2,13 @@ package com.guiguohui.system.controller;
 
 import com.guiguohui.system.common.Result;
 import com.guiguohui.system.service.TagService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/tag")
+@Api(tags = "标签相关接口")
 public class TagController {
 
     @Autowired

@@ -6,12 +6,14 @@ import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
 import com.guiguohui.system.service.NoticeService;
 import com.guiguohui.system.service.OrderService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/notice")
+@Api(tags = "通知相关接口")
 public class NoticeController {
 
 

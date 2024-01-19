@@ -5,12 +5,14 @@ import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.service.CallBackService;
 import com.guiguohui.system.service.TagService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/callback")
+@Api(tags = "反馈相关接口")
 public class CallBackController {
 
     @Autowired

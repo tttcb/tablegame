@@ -7,6 +7,7 @@ import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.mapper.UserMapper;
 import com.guiguohui.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public User queryByUserId(Integer userId) {
@@ -84,7 +89,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String resetPassWord(Integer userId, String password) {
-        return null;
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("Id", userId);
+        queryWrapper.eq("status", USER_ACTIVE);
+        if(userMapper.selectById(userId) == null){
+            return "用户不存在";
+        }
+        Integer result = userMapper.update(User.builder().password(password).build(), queryWrapper);
+        if(result.equals(1)) {
+            return "修改用户密码成功";
+        }else {
+            return "修改用户密码失败";
+        }
     }
 
     @Override

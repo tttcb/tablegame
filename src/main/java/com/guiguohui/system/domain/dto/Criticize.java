@@ -19,9 +19,6 @@ public class Criticize {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "user_role")
-    private Integer userRole;
-
     @TableField(value = "user_id")
     private Integer userId;
 

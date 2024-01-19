@@ -40,4 +40,6 @@ public interface CommodityService {
     String delete(Integer id);
 
     Commodity queryById(Integer commodityId);
+
+    String changeStock(Integer count,Integer id);
 }

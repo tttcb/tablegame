@@ -23,9 +23,6 @@ public class Message {
     @TableField(value = "user_id")
     private Integer userId;
 
-    @TableField(value = "user_role")
-    private Integer userRole;
-
     @TableField(value = "content")
     private String content;
 

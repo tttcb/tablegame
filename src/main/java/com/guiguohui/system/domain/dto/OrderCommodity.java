@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("orderCommodity")
+@TableName("order_commodity")
 public class OrderCommodity {
 
     @TableId(type = IdType.AUTO)
@@ -32,7 +32,7 @@ public class OrderCommodity {
     private Double price;
 
     @TableField(value = "tag")
-    private Integer tag;
+    private String tag;
 
     @TableField(value = "count")
     private Integer count;

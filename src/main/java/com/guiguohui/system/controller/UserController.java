@@ -3,6 +3,7 @@ package com.guiguohui.system.controller;
 import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.UserService;
 import com.guiguohui.system.common.Result;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping(value = "/guiguohui/user")
 @RestController
+@Api(tags = "用户相关接口")
 public class UserController {
 
     @Autowired

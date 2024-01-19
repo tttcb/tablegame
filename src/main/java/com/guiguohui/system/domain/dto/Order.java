@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author tu.cb
@@ -41,8 +42,7 @@ public class Order {
     @TableField(value = "price")
     private Double price ;
 
-    @TableField(value = "details")
-    private HashMap<Commodity, Integer> details ;
+    private List<OrderDetail> details ;
 
     @TableField(value = "date")
     private DateTime date;

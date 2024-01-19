@@ -3,6 +3,7 @@ package com.guiguohui.system.controller;
 import com.guiguohui.system.common.Result;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.service.ShopService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping(value = "/guiguohui/shop")
+@Api(tags = "店铺相关接口")
 public class ShopController {
 
     @Autowired

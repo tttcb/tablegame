@@ -1,0 +1,11 @@
+-- `1`.notice definition
+
+CREATE TABLE `notice` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `order_id` bigint(20) NOT NULL COMMENT '订单ID',
+  `content` varchar(200) NOT NULL COMMENT '内容',
+    `type` varchar(100) NOT NULL COMMENT '类型',
+  `status` tinyint(10) NOT NULL DEFAULT '0' COMMENT '删除状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

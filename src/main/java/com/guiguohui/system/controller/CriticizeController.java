@@ -5,11 +5,13 @@ import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Criticize;
 import com.guiguohui.system.service.CallBackService;
 import com.guiguohui.system.service.CriticizeService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/guiguohui/criticize")
+@Api(tags = "评论相关接口")
 public class CriticizeController {
 
     @Autowired

@@ -36,10 +36,6 @@ public class LoginService {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
-
-
-    @Value("${jwt.expiration}")
-    private Long expiration;
     @Resource
     private UserMapper userMapper;
 
