@@ -1,13 +1,14 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Criticize;
 
 import java.util.List;
 
 public interface CriticizeService {
-    List<Criticize> queryAll(Integer commodityId);
+    PageHelper<Criticize> queryAll(Integer commodityId,Integer pageIndex, Integer pageSize);
 
-    String insert(String content);
+    String insert(String content,Integer commodityId);
 
     String update(String content,Integer criticizeId);
 

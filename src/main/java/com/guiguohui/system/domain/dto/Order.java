@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,34 +23,36 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("order")
+@TableName("c_order")
 public class Order {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     @TableField(value = "address")
-    @ApiParam("收货地址")
+    @ApiModelProperty("收货地址")
     private String address;
 
     @TableField(value = "user_id")
     private Integer userId;
 
     @TableField(value = "pay_way")
-    @ApiParam("支付方式")
+    @ApiModelProperty("支付方式")
     private Integer payWay;
 
     @TableField(value = "status")
+    @ApiModelProperty("状态(无需填写)")
     private Integer status ;
 
     @TableField(value = "price")
-    @ApiParam("总价格")
-    private Double price ;
+    @ApiModelProperty("总价格")
+    private Double totalPrice ;
 
-    @ApiParam("订单详情")
+    @TableField(exist = false)
+    @ApiModelProperty("订单详情(无需填写)")
     private List<OrderDetail> details ;
 
     @TableField(value = "date")
-    @ApiParam("日期")
+    @ApiModelProperty("日期(无需填写)")
     private Date date;
 }

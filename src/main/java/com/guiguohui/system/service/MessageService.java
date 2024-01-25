@@ -1,11 +1,12 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Message;
 
 import java.util.List;
 
 public interface MessageService {
-    List<Message> queryAll(Integer shopId);
+    PageHelper<Message> queryAll(Integer shopId,Integer pageIndex, Integer pageSize);
 
     String insert(String content,Integer shopId);
 
@@ -15,5 +16,5 @@ public interface MessageService {
 
     String reply(String content,Integer messageId);
 
-    List<Message> queryById(Integer messageId) ;
+    PageHelper<Message> queryById(Integer messageId,Integer pageIndex, Integer pageSize) ;
 }

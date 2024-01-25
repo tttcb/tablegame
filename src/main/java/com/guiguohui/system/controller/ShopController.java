@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.service.ShopService;
 import io.swagger.annotations.Api;
@@ -24,9 +25,11 @@ public class ShopController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("搜索店铺")
-    public List<Shop> search(
-            @RequestParam(value = "shopName", required = false) String shopName) {
-        return shopService.search(shopName);
+    public PageHelper<Shop> search(
+            @RequestParam(value = "shopName", required = false) String shopName,
+            @RequestParam(value = "pageIndex") Integer pageIndex,
+            @RequestParam(value = "pageSize") Integer pageSize) {
+        return shopService.search(shopName,pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

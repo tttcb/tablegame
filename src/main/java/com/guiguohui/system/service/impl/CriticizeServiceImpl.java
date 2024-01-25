@@ -1,11 +1,13 @@
 package com.guiguohui.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.config.SecurityContext;
 import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Criticize;
 import com.guiguohui.system.mapper.CriticizeMapper;
 import com.guiguohui.system.service.CriticizeService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,15 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
     @Override
-    public List<Criticize> queryAll(Integer commodityId) {
+    public PageHelper<Criticize> queryAll(Integer commodityId,Integer pageIndex, Integer pageSize) {
         QueryWrapper<Criticize> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         queryWrapper.eq("criticize_id",null);
         queryWrapper.eq("commodity_id",commodityId);
-        return criticizeMapper.selectList(queryWrapper);
+        List<Criticize> data = criticizeMapper.selectList(queryWrapper);
+        PageHelper<Criticize> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        result.init();
+        return result;
     }
 
     @Override
@@ -44,10 +49,15 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
     @Override
-    public String insert(String content) {
+    public String insert(String content,Integer commodityId) {
+        Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
         Integer result = criticizeMapper.insert(Criticize.builder()
                         .content(content)
-                        .userId(SecurityContext.getUserId())
+                        .userId(userid)
+                        .commodityId(commodityId)
                         .status(COMMODITY_ACTIVE)
                 .build());
         if (result.equals(1)) {
@@ -91,9 +101,13 @@ public class CriticizeServiceImpl implements CriticizeService {
 
     @Override
     public String reply(String content,Integer criticizeId) {
+         Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
         Integer result = criticizeMapper.insert(Criticize.builder()
                 .content(content)
-                .userId(SecurityContext.getUserId())
+                .userId(userid)
                 .criticizeId(criticizeId)
                 .status(COMMODITY_ACTIVE)
                 .build());

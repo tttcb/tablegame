@@ -1,11 +1,10 @@
 package com.guiguohui.system.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.config.SecurityContext;
-import com.guiguohui.system.domain.dto.Commodity;
-import com.guiguohui.system.domain.dto.Order;
-import com.guiguohui.system.domain.dto.OrderCommodity;
-import com.guiguohui.system.domain.dto.OrderDetail;
+import com.guiguohui.system.domain.dto.*;
 import com.guiguohui.system.mapper.OrderCommodityMapper;
 import com.guiguohui.system.mapper.OrderMapper;
 import com.guiguohui.system.service.CommodityService;
@@ -13,6 +12,8 @@ import com.guiguohui.system.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,15 +34,19 @@ public class OrderServiceImpl implements OrderService {
     public CommodityService commodityService;
 
     @Override
-    public String insert(Order order) {
-        Integer result = orderMapper.insert(order);
-        for (OrderDetail a : order.getDetails()) {
-            addCommodity(a.commodityId, a.count, order.getId());
-        }
+    public String insert(Order order) throws ParseException {
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        order.setDate(dft.parse(DateTime.now().toString()));
+        order.setStatus(ORDER_PAY);
+        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", order.getUserId());
+        queryWrapper.eq("status",ORDER_GOUWUCHE);
+        Integer result = orderMapper.update(order, queryWrapper);
         if (result.equals(1)) {
-            return "新增订单成功";
+            addGouWuChe(order.getUserId());
+            return "更新订单成功";
         } else {
-            return "新增订单失败";
+            return "更新订单失败";
         }
     }
 
@@ -89,12 +94,28 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+
+    public Void addGouWuChe(Integer userId) {
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            orderMapper.insert(Order.
+                    builder().status(ORDER_GOUWUCHE)
+                    .date(dft.parse(DateTime.now().toString()))
+                    .userId(userId)
+                    .build())
+            ;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     @Override
-    public String updateGouWuChe(OrderCommodity orderCommodity) {
+    public String updateGouWuChe(Integer orderCommodityId, Integer count) {
         QueryWrapper<OrderCommodity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", orderCommodity.getId());
-        queryWrapper.eq("status", COMMODITY_ACTIVE);
-        Integer result = orderCommodityMapper.update(orderCommodity, queryWrapper);
+        queryWrapper.eq("id", orderCommodityId);
+        queryWrapper.eq("status", ORDERCOMMODITY_ACTIVE);
+        Integer result = orderCommodityMapper.update(OrderCommodity.builder().count(count).build(), queryWrapper);
         if (result.equals(1)) {
             return "更新购物车商品成功";
         } else {
@@ -104,13 +125,31 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<Order> queryByUserId(Integer userId) {
+    public PageHelper<Order> queryByUserId(Integer userId, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
         if (userId == null) {
             throw new IllegalArgumentException("用户ID不能为空");
         }
-        queryWrapper.eq("userId", userId);
-        return orderMapper.selectList(queryWrapper);
+        queryWrapper.eq("user_Id", userId);
+        queryWrapper.eq("status",ORDER_NOTPAY).or().eq("status",ORDER_PAY);
+        List<Order> data = orderMapper.selectList(queryWrapper);
+        int index = 0 ;
+        for (Order order : data){
+            QueryWrapper<OrderCommodity> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("order_id", order.getId());
+            queryWrapper1.eq("status",ORDERCOMMODITY_ACTIVE);
+            List<OrderCommodity> orderCommodities = orderCommodityMapper.selectList(queryWrapper1);
+            List<OrderDetail> details = new ArrayList<>();
+            for (OrderCommodity orderCommodity : orderCommodities) {
+                OrderDetail detail = new OrderDetail(orderCommodity);
+                details.add(detail);
+            }
+            order.setDetails(details);
+            data.set(index++, order);
+        }
+        PageHelper<Order> result = new PageHelper<>(0, pageSize, pageIndex, data);
+        result.init();
+        return result;
     }
 
     @Override
@@ -138,10 +177,11 @@ public class OrderServiceImpl implements OrderService {
             Order result = orderMapper.selectById(id);
             QueryWrapper<OrderCommodity> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("order_id", result.getId());
+            queryWrapper.eq("status",ORDERCOMMODITY_ACTIVE);
             List<OrderCommodity> orderCommodities = orderCommodityMapper.selectList(queryWrapper);
             List<OrderDetail> details = new ArrayList<>();
             for (OrderCommodity orderCommodity : orderCommodities) {
-                OrderDetail detail = new OrderDetail(orderCommodity,null,null);
+                OrderDetail detail = new OrderDetail(orderCommodity);
                 details.add(detail);
             }
             result.setDetails(details);
@@ -165,16 +205,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String addCommodity(Integer id, Integer count) {
+      Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
         if (id != null) {
             Commodity commodity = commodityService.queryById(id);
             orderCommodityMapper.insert(
                     OrderCommodity.builder()
-                            .orderId(queryGouWuCheId(SecurityContext.getUserId()).getId())
+                            .orderId(queryGouWuCheId(userid).getId())
                             .price(commodity.getPrice())
                             .count(count)
                             .commodityId(id)
                             .name(commodity.getName())
                             .tag(commodity.getTag())
+                            .status(ORDERCOMMODITY_ACTIVE)
                             .build()
             );
             return "新增购物车商品成功";
@@ -183,7 +228,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
     }
-
+/*
     public String addCommodity(Integer id, Integer count, Integer orderId) {
         if (id != null) {
             Commodity commodity = commodityService.queryById(id);
@@ -202,5 +247,5 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("id不能为空");
         }
 
-    }
+    }*/
 }

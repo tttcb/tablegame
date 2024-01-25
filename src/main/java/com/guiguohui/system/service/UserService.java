@@ -1,5 +1,6 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.UserDetails;
 import com.guiguohui.system.domain.dto.User;
 
@@ -22,7 +23,7 @@ public interface UserService {
 
     String modify(User user);
 
-    List<User> queryAll();
+    PageHelper<User> queryAll(String username, Integer pageIndex, Integer pageSize);
 
     String resetPassWord(Integer userId, String password);
 

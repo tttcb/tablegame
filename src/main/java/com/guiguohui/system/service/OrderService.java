@@ -1,15 +1,18 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface OrderService {
 
 
-    List<Order> queryByUserId(Integer userId);
+    PageHelper<Order> queryByUserId(Integer userId,Integer pageIndex, Integer pageSize);
 
     String delete(Integer id);
 
@@ -17,7 +20,7 @@ public interface OrderService {
 
     String addCommodity(Integer id, Integer count);
 
-    String insert(Order order);
+    String insert(Order order) throws ParseException;
 
     String update(Order order);
 
@@ -25,5 +28,7 @@ public interface OrderService {
 
     List<OrderCommodity> queryGouWuChe(Integer userId);
 
-    String updateGouWuChe(OrderCommodity orderCommodity);
+    String updateGouWuChe(Integer orderCommodityId,Integer count);
+
+    Void addGouWuChe(Integer userId);
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,14 +27,15 @@ public class Criticize {
     private String content;
 
     @TableField(value = "status")
+    @ApiModelProperty("状态(无需填写)")
     private Integer status;
 
     @TableField(value = "commodity_id")
-    @ApiParam("商品Id")
+    @ApiModelProperty("商品Id")
     private Integer commodityId;
 
     @TableField(value = "criticize_id")
-    @ApiParam("回复评论的ID")
+    @ApiModelProperty("回复评论的ID")
     private Integer criticizeId;
 
 }

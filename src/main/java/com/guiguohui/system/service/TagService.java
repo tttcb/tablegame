@@ -1,5 +1,6 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.domain.dto.Tag;
 
@@ -16,6 +17,6 @@ public interface TagService {
 
     String update(Integer id,String name);
 
-    List<Tag> queryAll();
+    PageHelper<Tag> queryAll(Integer pageIndex, Integer pageSize);
 
 }

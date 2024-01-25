@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.service.NoticeService;
 import io.swagger.annotations.Api;
@@ -29,8 +30,9 @@ public class NoticeController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有通知")
-    public List<Notice> queryAll() {
-        return noticeService.queryAll();
+    public PageHelper<Notice> queryAll(@RequestParam(value = "pageIndex") Integer pageIndex,
+                                       @RequestParam(value = "pageSize") Integer pageSize) {
+        return noticeService.queryAll(pageIndex, pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)

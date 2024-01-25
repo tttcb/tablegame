@@ -3,8 +3,8 @@
 CREATE TABLE `criticize` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `criticize_id` bigint(20) NOT NULL COMMENT '回复评论ID',
-  `commodity_id` bigint(20) NOT NULL COMMENT '商品ID',
+  `criticize_id` bigint(20)  COMMENT '回复评论ID',
+  `commodity_id` bigint(20)  COMMENT '商品ID',
   `content` varchar(200) NOT NULL COMMENT '内容',
   `status` tinyint(10) NOT NULL DEFAULT '0' COMMENT '删除状态',
   PRIMARY KEY (`id`)

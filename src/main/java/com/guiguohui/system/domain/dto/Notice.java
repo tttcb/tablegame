@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,14 +27,15 @@ public class Notice {
     private Integer userId;
 
     @TableField(value = "content")
-    @ApiParam("简介")
+    @ApiModelProperty("简介")
     private String content;
 
     @TableField(value = "status")
+    @ApiModelProperty("状态(1、未读，2、已读，3、删除)")
     private Integer status;
 
     @TableField(value = "type")
-    @ApiParam("通知类型")
+    @ApiModelProperty("通知类型")
     private Integer type;
 
 }

@@ -1,5 +1,6 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public interface CommodityService {
      * @param
      * @return
      */
-    List<Commodity> search(String commodityName, Integer commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason);
+    PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason,Integer pageIndex, Integer pageSize);
 
-    List<Commodity> queryAll();
+    PageHelper<Commodity> queryAll();
     /**
      * 插入
      * @param commodity

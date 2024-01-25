@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,22 +22,23 @@ public class Message {
     private Integer id;
 
     @TableField(value = "user_id")
-    @ApiParam("用户id")
+    @ApiModelProperty("用户id")
     private Integer userId;
 
     @TableField(value = "content")
-    @ApiParam("简介")
+    @ApiModelProperty("简介")
     private String content;
 
     @TableField(value = "shop_id")
-    @ApiParam("店铺id")
+    @ApiModelProperty("店铺id")
     private Integer shopId;
 
     @TableField(value = "status")
+    @ApiModelProperty("状态(无需填写)")
     private Integer status;
 
     @TableField(value = "message_id")
-    @ApiParam("回复留言的ID")
+    @ApiModelProperty("回复留言的ID")
     private Integer messageId;
 
 

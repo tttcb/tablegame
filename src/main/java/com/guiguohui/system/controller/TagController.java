@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Tag;
 import com.guiguohui.system.service.TagService;
 import io.swagger.annotations.Api;
@@ -35,8 +36,9 @@ public class TagController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有标签")
-    public List<Tag> queryAll() {
-        return tagService.queryAll();
+    public PageHelper<Tag> queryAll(@RequestParam(value = "pageIndex") Integer pageIndex,
+                                    @RequestParam(value = "pageSize") Integer pageSize) {
+        return tagService.queryAll(pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

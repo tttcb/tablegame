@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.service.CommodityService;
 import io.swagger.annotations.Api;
@@ -24,13 +25,16 @@ public class CommodityController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("搜索商品")
-    public List<Commodity> search(
+    public PageHelper<Commodity> search(
             @RequestParam(value = "commodityName", required = false) String commodityName,
-            @RequestParam(value = "commodityType", required = false) Integer commodityType,
+            @RequestParam(value = "commoditytag", required = false) String commoditytag,
             @RequestParam(value = "commodityMaxPrice", required = false) Integer commodityMaxPrice,
             @RequestParam(value = "commodityMinPrice", required = false) Integer commodityMinPrice,
-            @RequestParam(value = "commodityseason", required = false) Integer commoditySeason) {
-        return commodityService.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason);
+            @RequestParam(value = "commodityseason", required = false) Integer commoditySeason,
+            @RequestParam(value = "pageIndex") Integer pageIndex,
+            @RequestParam(value = "pageSize") Integer pageSize
+            ) {
+        return commodityService.search(commodityName, commoditytag, commodityMaxPrice, commodityMinPrice, commoditySeason,pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
@@ -40,6 +44,7 @@ public class CommodityController {
             value = "commodityId", required = false) Integer commodityId) {
         return commodityService.queryById(commodityId);
     }
+/*
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
@@ -47,6 +52,7 @@ public class CommodityController {
     public List<Commodity> queryAll(){
         return commodityService.queryAll();
     }
+*/
 
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

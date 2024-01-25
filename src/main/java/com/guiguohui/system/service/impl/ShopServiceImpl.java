@@ -1,6 +1,8 @@
 package com.guiguohui.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
+import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.mapper.ShopMapper;
@@ -26,23 +28,27 @@ public class ShopServiceImpl implements ShopService {
     private ShopMapper shopMapper;
 
 
-    public List<Shop> search(String shopName) {
+    public PageHelper<Shop> search(String shopName, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         if (shopName != null) {
             queryWrapper.like("name", "%"+shopName+"%");
         }
-        return shopMapper.selectList(queryWrapper);
+        List<Shop> data = shopMapper.selectList(queryWrapper);
+        PageHelper<Shop> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        result.init();
+        return result;
     }
 
     @Override
-    public List<Shop> queryAll() {
-        return search(null);
+    public PageHelper<Shop> queryAll(Integer pageIndex, Integer pageSize) {
+        return search(null,  pageIndex,  pageSize);
     }
 
 
     @Override
     public String insert(Shop shop) {
+        shop.setStatus(COMMODITY_ACTIVE);
         Integer result = shopMapper.insert(shop);
         if (result.equals(1)) {
             return "新增店铺成功";

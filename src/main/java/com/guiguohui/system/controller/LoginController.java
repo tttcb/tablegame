@@ -41,6 +41,7 @@ public class LoginController {
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
+        tokenMap.put("username",username);
         return tokenMap;
     }
 

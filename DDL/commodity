@@ -4,14 +4,14 @@ CREATE TABLE `commodity` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `shop_id` bigint(20) NOT NULL COMMENT '商店id',
   `name` varchar(100) NOT NULL COMMENT '名称',
-  `company` varchar(100) NOT NULL COMMENT '公司',
-  `season` varchar(100) NOT NULL COMMENT '季节',
-  `producer` varchar(100) NOT NULL COMMENT '产地',
-  `weight` varchar(100) NOT NULL COMMENT '重量',
-  `stock` varchar(100) NOT NULL COMMENT '数量',
+  `company` varchar(100)  COMMENT '公司',
+  `season` varchar(100)  COMMENT '季节',
+  `producer` varchar(100)  COMMENT '产地',
+  `weight` varchar(100)  COMMENT '重量',
+  `stock` varchar(100) NOT NULL COMMENT '库存',
   `price` varchar(100) NOT NULL COMMENT '价格',
   `content` varchar(100) NOT NULL COMMENT '简介',
-  `tag` varchar(100) NOT NULL COMMENT '分类',
+  `tag` varchar(100) NOT NULL DEFAULT '0' COMMENT '分类',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除状态（0未删除，1已删除）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

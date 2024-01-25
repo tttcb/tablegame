@@ -1,7 +1,9 @@
 package com.guiguohui.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.config.SecurityContext;
+import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Message;
 import com.guiguohui.system.mapper.MessageMapper;
 import com.guiguohui.system.service.MessageService;
@@ -25,30 +27,39 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public List<Message> queryAll(Integer shopId) {
+    public PageHelper<Message> queryAll(Integer shopId, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
-        queryWrapper.eq("message_id",null);
-        queryWrapper.eq("shop_id",shopId);
-        return messageMapper.selectList(queryWrapper);
+        queryWrapper.eq("message_id", 0);
+        queryWrapper.eq("shop_id", shopId);
+        List<Message> data = messageMapper.selectList(queryWrapper);
+        PageHelper<Message> result = new PageHelper<>(0, pageSize, pageIndex, data);
+        result.init();
+        return result;
     }
 
     @Override
-    public List<Message> queryById(Integer messageId) {
+    public PageHelper<Message> queryById(Integer messageId, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", messageId).or().eq("message_id",messageId).orderByDesc("id");
-        return messageMapper.selectList(queryWrapper);
+        queryWrapper.eq("message_id", messageId).orderByAsc("id");
+        List<Message> data = messageMapper.selectList(queryWrapper);
+        PageHelper<Message> result = new PageHelper<>(0, pageSize, pageIndex, data);
+        result.init();
+        return result;
     }
 
 
-
     @Override
-    public String insert(String content,Integer shopId) {
+    public String insert(String content, Integer shopId) {
+         Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
         Integer result = messageMapper.insert(Message.builder()
-                        .content(content)
-                        .userId(SecurityContext.getUserId())
-                        .status(COMMODITY_ACTIVE)
-                        .shopId(shopId)
+                .content(content)
+                .userId(userid)
+                .status(COMMODITY_ACTIVE)
+                .shopId(shopId)
                 .build());
         if (result.equals(1)) {
             return "新增评价成功";
@@ -58,7 +69,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public String update(String content,Integer messageId) {
+    public String update(String content, Integer messageId) {
         QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", messageId);
         queryWrapper.eq("status", COMMODITY_ACTIVE);
@@ -90,10 +101,16 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public String reply(String content,Integer messageId) {
+    public String reply(String content, Integer messageId) {
+         Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
+        Message temp = messageMapper.selectById(messageId);
         Integer result = messageMapper.insert(Message.builder()
                 .content(content)
-                .userId(SecurityContext.getUserId())
+                .userId(userid)
+                .shopId(temp.getShopId())
                 .messageId(messageId)
                 .status(COMMODITY_ACTIVE)
                 .build());

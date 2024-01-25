@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.service.CallBackService;
 import io.swagger.annotations.Api;
@@ -21,22 +22,23 @@ public class CallBackController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有反馈")
-    public List<Callback> queryAll() {
-        return callBackService.queryAll();
+    public PageHelper<Callback> queryAll( @RequestParam(value = "pageIndex") Integer pageIndex,
+                                          @RequestParam(value = "pageSize") Integer pageSize) {
+        return callBackService.queryAll(pageIndex, pageSize);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新增反馈")
-    public String insert(@RequestBody Callback callback) {
-        return callBackService.insert(callback);
+    public String insert(@RequestParam("content") String content) {
+        return callBackService.insert(content);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改反馈")
-    public String update(@RequestBody Callback callback) {
-        return callBackService.update(callback);
+    public String update(@RequestParam("content") String content,@RequestParam("Id") Integer id) {
+        return callBackService.update(content,id);
     }
     @ApiOperation("删除反馈")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)

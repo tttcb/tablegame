@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,9 +24,10 @@ public class Callback {
     private Integer userId;
 
     @TableField(value = "content")
-    @ApiParam("内容")
+    @ApiModelProperty("内容")
     private String content;
 
     @TableField(value = "status")
+    @ApiModelProperty("状态(无需填写)")
     private Integer status;
 }

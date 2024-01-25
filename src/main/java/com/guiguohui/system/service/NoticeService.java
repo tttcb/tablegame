@@ -1,5 +1,6 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.domain.dto.Order;
 
@@ -17,7 +18,7 @@ public interface NoticeService {
 
     String alreadly(Integer id);
 
-    List<Notice> queryAll();
+    PageHelper<Notice> queryAll(Integer pageIndex, Integer pageSize);
 
     Notice queryById(Integer id);
 }

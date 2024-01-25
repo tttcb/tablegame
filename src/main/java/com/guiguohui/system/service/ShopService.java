@@ -1,5 +1,6 @@
 package com.guiguohui.system.service;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.domain.dto.Shop;
 
@@ -16,7 +17,7 @@ public interface ShopService {
      * @param
      * @return
      */
-    List<Shop> search(String shopName);
+    PageHelper<Shop> search(String shopName,Integer pageIndex, Integer pageSize);
 
     /**
      * 插入
@@ -26,7 +27,7 @@ public interface ShopService {
     String insert(Shop shop);
 
 
-    List<Shop> queryAll();
+    PageHelper<Shop> queryAll(Integer pageIndex, Integer pageSize);
 
     /**
      * 更新

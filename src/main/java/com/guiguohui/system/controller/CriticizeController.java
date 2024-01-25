@@ -1,5 +1,6 @@
 package com.guiguohui.system.controller;
 
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Criticize;
 import com.guiguohui.system.service.CriticizeService;
 import io.swagger.annotations.Api;
@@ -21,8 +22,10 @@ public class CriticizeController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有评论")
-    public List<Criticize> queryAll(Integer commodityId) {
-        return criticizeService.queryAll(commodityId);
+    public PageHelper<Criticize> queryAll(@RequestParam(value = "commodityId")Integer commodityId,
+                                          @RequestParam(value = "pageIndex") Integer pageIndex,
+                                          @RequestParam(value = "pageSize") Integer pageSize) {
+        return criticizeService.queryAll(commodityId,pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
@@ -35,8 +38,8 @@ public class CriticizeController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新增评论")
-    public String insert(@RequestBody String content) {
-        return criticizeService.insert(content);
+    public String insert(@RequestParam String content,@RequestParam Integer commodityId) {
+        return criticizeService.insert(content,commodityId);
     }
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)

@@ -1,7 +1,10 @@
 package com.guiguohui.system.service.impl;
 
+import cn.hutool.db.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.config.SecurityContext;
+import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.mapper.NoticeMapper;
@@ -24,6 +27,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public String insert(Notice notice) {
+        notice.setStatus(NOTICE_NEW);
         Integer result = noticeMapper.insert(notice);
         if (result.equals(1)) {
             return "新增通知成功";
@@ -59,11 +63,18 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> queryAll() {
+    public PageHelper<Notice> queryAll(Integer pageIndex, Integer pageSize) {
+        Integer userid = SecurityContext.getUserId();
+        if (userid == null) {
+            throw new IllegalArgumentException("userid cannot be null");
+        }
         QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("userId", SecurityContext.getUserId());
+        queryWrapper.eq("user_id", userid);
         queryWrapper.ne("status", NOTICE_DELETE);
-        return noticeMapper.selectList(queryWrapper);
+        List<Notice> data = noticeMapper.selectList(queryWrapper);
+        PageHelper<Notice> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        result.init();
+        return result;
     }
 
     @Override

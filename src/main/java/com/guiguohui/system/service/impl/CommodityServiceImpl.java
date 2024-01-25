@@ -1,6 +1,8 @@
 package com.guiguohui.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.guiguohui.system.common.PageHelper;
+import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.mapper.CommodityMapper;
 import com.guiguohui.system.service.CommodityService;
@@ -23,14 +25,14 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityMapper commodityMapper;
 
 
-    public List<Commodity> search(String commodityName, Integer commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason) {
+    public PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         if (commodityName != null) {
             queryWrapper.like("name", "%"+commodityName+"%");
         }
         if (commodityType != null) {
-            queryWrapper.eq("type", commodityType);
+            queryWrapper.eq("tag", commodityType);
         }
         if (commodityMaxPrice != null && commodityMinPrice != null) {
             queryWrapper.between("price", commodityMaxPrice, commodityMinPrice);
@@ -38,17 +40,22 @@ public class CommodityServiceImpl implements CommodityService {
         if (commoditySeason != null) {
             queryWrapper.like("season","%"+ commoditySeason+"%");
         }
-        return commodityMapper.selectList(queryWrapper);
+        List<Commodity> data = commodityMapper.selectList(queryWrapper);
+        PageHelper<Commodity> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        result.init();
+        return result;
+
     }
 
     @Override
-    public List<Commodity> queryAll() {
-        return search(null, null, null, null, null);
+    public PageHelper<Commodity> queryAll() {
+        return search(null, null, null, null, null,1,100);
     }
 
 
     @Override
     public String insert(Commodity commodity) {
+        commodity.setStatus(COMMODITY_ACTIVE);
         Integer result = commodityMapper.insert(commodity);
         if (result.equals(1)) {
             return "新增商品成功";

@@ -1,10 +1,9 @@
 package com.guiguohui.system.service.impl;
 
+import cn.hutool.db.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.guiguohui.system.domain.dto.Notice;
-import com.guiguohui.system.domain.dto.Order;
-import com.guiguohui.system.domain.dto.Shop;
-import com.guiguohui.system.domain.dto.Tag;
+import com.guiguohui.system.common.PageHelper;
+import com.guiguohui.system.domain.dto.*;
 import com.guiguohui.system.mapper.TagMapper;
 import com.guiguohui.system.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,13 @@ public class TagServiceImpl implements TagService {
     public String insert(String name) {
         Tag tag = Tag.builder()
                 .name(name)
+                .status(COMMODITY_ACTIVE)
                 .build();
         Integer result = tagMapper.insert(tag);
         if (result.equals(1)) {
-            return "更新标签成功";
+            return "新增标签成功";
         } else {
-            return "更新标签失败";
+            return "新增标签失败";
         }
 
     }
@@ -48,10 +48,13 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> queryAll() {
+    public PageHelper<Tag> queryAll(Integer pageIndex, Integer pageSize) {
         QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
-        return tagMapper.selectList(queryWrapper);
+        List<Tag> data =  tagMapper.selectList(queryWrapper);
+        PageHelper<Tag> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        result.init();
+        return result;
     }
 
     @Override
