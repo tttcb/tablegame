@@ -5,6 +5,8 @@ import com.guiguohui.system.domain.dto.Order;
 import com.guiguohui.system.domain.dto.OrderCommodity;
 import com.guiguohui.system.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -47,14 +49,20 @@ public class OrderController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("结算购物车")
-    public String insert(@Validated @RequestBody Order order) throws ParseException {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "payWay", required = true),
+            @ApiImplicitParam(name = "address", required = true),
+            @ApiImplicitParam(name = "totalPrice", required = true)
+    })
+    public String insert(Order order) throws ParseException {
         return orderService.insert(order);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("更新订单")
-    public String update(@Validated @RequestBody Order order) {
+    @ApiImplicitParam(name = "id", required = true)
+    public String update(Order order) {
         return orderService.update(order);
     }
 

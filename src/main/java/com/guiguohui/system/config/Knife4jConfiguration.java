@@ -15,7 +15,7 @@ public class Knife4jConfiguration {
 
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
-        String groupName="3.X版本";
+        String groupName="3.X";
         Docket docket=new Docket(DocumentationType.OAS_30)
                 .apiInfo(new ApiInfoBuilder()
                         .title("knife4jAPI ")

@@ -4,11 +4,16 @@ import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.service.CommodityService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -56,16 +61,23 @@ public class CommodityController {
 
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", required = true),
+            @ApiImplicitParam(name = "shopId", required = true),
+            @ApiImplicitParam(name = "price", required = true),
+            @ApiImplicitParam(name = "content", required = true)
+    })
     @ResponseBody
     @ApiOperation("新增商品")
-    public String insert(@Validated @RequestBody Commodity commodity) {
+    public String insert(Commodity commodity) {
         return commodityService.insert(commodity);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改商品信息")
-    public String update(@Validated @RequestBody Commodity commodity) {
+    @ApiImplicitParam(name = "id", required = true)
+    public String update(Commodity commodity) {
         return commodityService.update(commodity);
     }
 
@@ -81,5 +93,22 @@ public class CommodityController {
     @ApiOperation("修改库存")
     public String changeStock(@RequestParam("count") Integer count,@RequestParam("commodityId") Integer commodityId) {
         return commodityService.changeStock(count,commodityId);
+    }
+
+    @RequestMapping(value = "/upLoadImage", method = RequestMethod.POST)
+    @ApiImplicitParams({@ApiImplicitParam(name = "file", value = "文件流对象,接收数组格式", required = true,dataTypeClass = MultipartFile.class,dataType = "MultipartFile"),
+            @ApiImplicitParam(name = "commodityId", value = "commodityId", required = true)}
+    )
+    @ResponseBody
+    @ApiOperation("上传图片")
+    public String upLoadImage(@RequestPart MultipartFile file,@RequestParam(value = "commodityId") Integer commodityId) throws IOException {
+        return commodityService.upLoadImage(file,commodityId);
+    }
+
+
+    @RequestMapping(value = "/loadImage", method = RequestMethod.GET)
+    @ApiOperation("读取图片")
+    public String loadImage(@RequestParam(value = "commodityId") Integer commodityId, HttpServletResponse httpServletResponse) throws IOException {
+        return commodityService.loadImage(commodityId,httpServletResponse);
     }
 }

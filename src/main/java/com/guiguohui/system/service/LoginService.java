@@ -17,7 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -71,22 +73,28 @@ public class LoginService {
         throw new RuntimeException("Could not refresh token");
     }
 
-    public String login(String username, String password) {
+    public Map<String, String> login(String username, String password) {
         String token = null;
+        Map<String, String> tokenMap = new HashMap<>();
         //密码需要客户端加密后传递
         try {
             // 查询用户+用户资源
             UserDetails userDetails = loadUserByUsername(username);
             // 验证密码
             System.out.println(passwordEncoder.encode(password));
-            if (password==userDetails.getPassword()) {
+            if (password == userDetails.getPassword()) {
                 throw new BadCredentialsException("密码不正确");
             }
             // 返回 JWT
             token = jwtTokenUtil.generateToken(userDetails);
+            tokenMap.put("token", token);
+            tokenMap.put("tokenHead", tokenHead);
+            tokenMap.put("username", username);
+            tokenMap.put("userid", ((AdminUserDetails) userDetails).getUserId().toString());
+            tokenMap.put("role",((AdminUserDetails) userDetails).getRole());
         } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
-        return token;
+        return tokenMap;
     }
 }

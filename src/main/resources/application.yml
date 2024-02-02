@@ -10,6 +10,12 @@ spring:
     name: GuiGuoHui-system
   profiles:
     active: dev
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB
+
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: codingmore-admin-secret #JWT加解密使用的密钥

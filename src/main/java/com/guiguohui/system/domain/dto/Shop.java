@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -28,9 +30,9 @@ public class Shop {
     @ApiModelProperty("状态(无需填写)")
     private Integer status;
 
-    @TableField(value = "type")
+/*    @TableField(value = "type")
     @ApiModelProperty("店铺类型")
-    private Integer type;
+    private Integer type;*/
 
     @TableField(value = "content")
     @ApiModelProperty("店铺简介")

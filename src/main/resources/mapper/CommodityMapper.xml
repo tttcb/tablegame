@@ -4,4 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guiguohui.system.mapper.CommodityMapper">
 
+    <select id="search" resultType="com.guiguohui.system.domain.dto.Commodity">
+        select id,name,shop_id,company,price,season,weight,producer,content,stock,tag,status from commodity
+        <where>
+            <if test ="commodityName != null and commodityName != ''">
+                name like #{commodityName}
+            </if>
+            <if test ="commodityType != null and commodityType != ''">
+                tag = #{commodityType}
+            </if>
+            <if test ="commoditySeason != null and commoditySeason != ''">
+                season = #{commoditySeason}
+            </if>
+            <if test ="commodityMaxPrice != null and commodityMaxPrice != ''">
+                price &lt; #{commodityMaxPrice} and price &gt; #{commodityMinPrice}
+            </if>
+                and status = 1
+        </where>
+        order by id desc
+    </select>
 </mapper>

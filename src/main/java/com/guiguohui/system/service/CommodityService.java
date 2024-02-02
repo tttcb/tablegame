@@ -2,7 +2,10 @@ package com.guiguohui.system.service;
 
 import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Commodity;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -43,4 +46,8 @@ public interface CommodityService {
     Commodity queryById(Integer commodityId);
 
     String changeStock(Integer count,Integer id);
+
+    String upLoadImage(MultipartFile file,Integer id) throws IOException;
+
+    String loadImage(Integer commodityId, HttpServletResponse httpServletResponse);
 }

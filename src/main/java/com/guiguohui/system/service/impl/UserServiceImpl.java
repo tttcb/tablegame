@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public String add(User user) {
         user.setStatus(USER_ACTIVE);
+        user.setAddressResult(null);
+        user.setLastTime(null);
         Integer result = userMapper.insert(user.convert(user));
         orderService.addGouWuChe(user.getId());
         noticeService.insert(Notice
@@ -103,11 +105,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageHelper<User> queryAll(String username, Integer pageIndex, Integer pageSize) {
+    public PageHelper<User> queryAll(String username, String role,Integer pageIndex, Integer pageSize) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", USER_ACTIVE);
         if (username != null) {
             queryWrapper.eq("user_name", username);
+        }
+        if (role != null) {
+            queryWrapper.eq("role", role);
         }
         List<User> data = userMapper.selectList(queryWrapper);
         int i = 0;

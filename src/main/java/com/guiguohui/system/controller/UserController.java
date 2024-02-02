@@ -1,11 +1,16 @@
 package com.guiguohui.system.controller;
 
 import com.guiguohui.system.common.PageHelper;
+import com.guiguohui.system.common.addUser;
+import com.guiguohui.system.common.updateUser;
 import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +37,10 @@ public class UserController {
     @ResponseBody
     @ApiOperation("查询所有用户")
     public PageHelper<User> queryAll(@RequestParam(value = "username", required = false) String username,
+                                     @RequestParam(value = "role", required = false) String role,
                                      @RequestParam(value = "pageIndex") Integer pageIndex,
                                      @RequestParam(value = "pageSize") Integer pageSize) {
-        return userService.queryAll(username, pageIndex, pageSize);
+        return userService.queryAll(username,role, pageIndex, pageSize);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
@@ -45,6 +51,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", required = true),
+            @ApiImplicitParam(name = "password", required = true),
+            @ApiImplicitParam(name = "nickname", required = true),
+            @ApiImplicitParam(name = "phone", required = true),
+            @ApiImplicitParam(name = "email", required = true)
+    })
     @ResponseBody
     @ApiOperation("新增用户")
     public String add(User user) {
@@ -54,6 +67,7 @@ public class UserController {
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("修改用户信息")
+    @ApiImplicitParam(name = "id", required = true)
     public String modify(User user) {
         return userService.modify(user);
     }

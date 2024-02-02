@@ -33,16 +33,12 @@ public class LoginController {
     @ResponseBody
     @ApiOperation("登录")
     public Map<String, String> login(String username, String password) {
-        String token = loginService.login(username, password);
-        if (token == null) {
+         Map<String, String> token = loginService.login(username, password);
+        if (token.get("token") == null) {
             throw new IllegalStateException("账号或者密码错误");
         }
         // 将 JWT 传递回客户端
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        tokenMap.put("username",username);
-        return tokenMap;
+        return token;
     }
 
     @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)

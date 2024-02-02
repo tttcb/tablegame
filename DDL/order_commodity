@@ -7,7 +7,7 @@ CREATE TABLE `order_commodity` (
   `order_id` bigint(20) NOT NULL COMMENT '订单id',
   `count` varchar(100) NOT NULL COMMENT '数量',
   `price` varchar(100) NOT NULL COMMENT '价格',
-  `tag` varchar(100) NOT NULL COMMENT '分类',
+  `tag` varchar(100)  COMMENT '分类',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除状态（0未删除，1已删除）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

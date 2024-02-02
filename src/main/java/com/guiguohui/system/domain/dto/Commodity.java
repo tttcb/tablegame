@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -51,6 +53,10 @@ public class Commodity {
     @TableField(value = "content")
     @ApiModelProperty("简介")
     private String content;
+
+    @TableField(value = "image")
+    @ApiModelProperty("图片")
+    private byte[] image;
 
     @TableField(value = "stock")
     @ApiModelProperty("库存")

@@ -4,6 +4,7 @@ import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Notice;
 import com.guiguohui.system.service.NoticeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -48,20 +49,22 @@ public class NoticeController {
     public String delete(@RequestParam("Id") Integer id) {
         return noticeService.delete(id);
     }
+
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
+    @ApiImplicitParam(name = "content", required = true)
     @ApiOperation("新增通知")
-    public String insert(@Validated @RequestBody Notice notice) {
+    public String insert(Notice notice) {
         return noticeService.insert(notice);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("修改通知")
-    public String update(@Validated @RequestBody Notice notice) {
+    @ApiImplicitParam(name = "id", required = true)
+    public String update(Notice notice) {
         return noticeService.update(notice);
     }
-
 
 
 }

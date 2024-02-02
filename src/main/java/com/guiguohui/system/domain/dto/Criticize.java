@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -31,7 +33,7 @@ public class Criticize {
     private Integer status;
 
     @TableField(value = "commodity_id")
-    @ApiModelProperty("商品Id")
+    @ApiModelProperty("商品ID")
     private Integer commodityId;
 
     @TableField(value = "criticize_id")

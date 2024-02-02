@@ -2,13 +2,18 @@ package com.guiguohui.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.guiguohui.system.common.PageHelper;
-import com.guiguohui.system.domain.dto.Callback;
 import com.guiguohui.system.domain.dto.Commodity;
 import com.guiguohui.system.mapper.CommodityMapper;
 import com.guiguohui.system.service.CommodityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,30 +31,21 @@ public class CommodityServiceImpl implements CommodityService {
 
 
     public PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason, Integer pageIndex, Integer pageSize) {
-        QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("status", COMMODITY_ACTIVE);
         if (commodityName != null) {
-            queryWrapper.like("name", "%"+commodityName+"%");
+            commodityName = "%" + commodityName + "%";
         }
-        if (commodityType != null) {
-            queryWrapper.eq("tag", commodityType);
+        if (commodityMinPrice == null) {
+            commodityMaxPrice = null;
         }
-        if (commodityMaxPrice != null && commodityMinPrice != null) {
-            queryWrapper.between("price", commodityMaxPrice, commodityMinPrice);
-        }
-        if (commoditySeason != null) {
-            queryWrapper.like("season","%"+ commoditySeason+"%");
-        }
-        List<Commodity> data = commodityMapper.selectList(queryWrapper);
-        PageHelper<Commodity> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        List<Commodity> data = commodityMapper.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason);
+        PageHelper<Commodity> result = new PageHelper<>(0, pageSize, pageIndex, data);
         result.init();
         return result;
-
     }
 
     @Override
     public PageHelper<Commodity> queryAll() {
-        return search(null, null, null, null, null,1,100);
+        return search(null, null, null, null, null, 1, 100);
     }
 
 
@@ -106,7 +102,7 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public String changeStock(Integer count,Integer id) {
+    public String changeStock(Integer count, Integer id) {
         QueryWrapper<Commodity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         queryWrapper.eq("status", COMMODITY_ACTIVE);
@@ -116,6 +112,38 @@ public class CommodityServiceImpl implements CommodityService {
         } else {
             return "更新库存失败";
         }
+    }
+
+    @Override
+    public String upLoadImage(MultipartFile file, Integer id) throws IOException {
+        return update(Commodity.builder().image(file.getBytes()).id(id).build());
+    }
+
+    @Override
+    public String loadImage(Integer commodityId, HttpServletResponse httpServletResponse) {
+        byte[] bytes = null;
+        Commodity commodity = queryById(commodityId);
+        if (commodity != null) {
+            bytes = commodity.getImage();
+        }
+        if (bytes == null) {
+            return "暂无图片";
+        }
+        InputStream is = new ByteArrayInputStream(bytes);
+        httpServletResponse.setContentType("image/*");
+        try {
+            ServletOutputStream sout = httpServletResponse.getOutputStream();
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = is.read(buf, 0, 1024)) != -1) {
+                sout.write(buf, 0, len);
+            }
+            sout.flush();
+            sout.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return "读取成功";
     }
 
 

@@ -20,7 +20,7 @@ public class PageHelper<a> {
 
     public void init() {
         this.totalPages = PageUtil.totalPage(data.size(), pageSize);
-        int[] index = PageUtil.transToStartEnd(pageIndex, pageSize);
+        int[] index = PageUtil.transToStartEnd(pageIndex-1, pageSize);
         if (index[1] > data.size()) {
             index[1]=data.size();
         }

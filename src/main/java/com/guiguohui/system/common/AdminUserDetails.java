@@ -38,6 +38,10 @@ public class AdminUserDetails implements UserDetails {
         return this.user.getId();
     }
 
+    public String getRole() {
+        return this.user.getRole();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return false;

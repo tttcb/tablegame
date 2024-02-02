@@ -23,7 +23,7 @@ public interface UserService {
 
     String modify(User user);
 
-    PageHelper<User> queryAll(String username, Integer pageIndex, Integer pageSize);
+    PageHelper<User> queryAll(String username,String role, Integer pageIndex, Integer pageSize);
 
     String resetPassWord(Integer userId, String password);
 

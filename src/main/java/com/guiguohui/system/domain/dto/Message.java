@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,7 +28,7 @@ public class Message {
     private Integer userId;
 
     @TableField(value = "content")
-    @ApiModelProperty("简介")
+    @ApiModelProperty("内容")
     private String content;
 
     @TableField(value = "shop_id")

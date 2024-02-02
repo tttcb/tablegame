@@ -8,10 +8,10 @@ CREATE TABLE `commodity` (
   `season` varchar(100)  COMMENT '季节',
   `producer` varchar(100)  COMMENT '产地',
   `weight` varchar(100)  COMMENT '重量',
-  `stock` varchar(100) NOT NULL COMMENT '库存',
+  `stock` varchar(100) NOT NULL DEFAULT '0'  COMMENT '库存',
   `price` varchar(100) NOT NULL COMMENT '价格',
   `content` varchar(100) NOT NULL COMMENT '简介',
-  `tag` varchar(100) NOT NULL DEFAULT '0' COMMENT '分类',
+  `tag` varchar(100) DEFAULT '0' COMMENT '分类',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '删除状态（0未删除，1已删除）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.guiguohui.system.common.addUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 import static com.guiguohui.system.common.Parameter.FENGEFU;
@@ -66,7 +69,7 @@ public class User  {
     private String email;
 
     @TableField(value = "role")
-    @ApiModelProperty("角色")
+    @ApiModelProperty("角色(1、商家,2、用户)")
     private String role;
 
     @TableField(value = "last_time")

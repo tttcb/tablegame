@@ -4,6 +4,8 @@ import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.domain.dto.Shop;
 import com.guiguohui.system.service.ShopService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -35,14 +37,19 @@ public class ShopController {
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新增店铺")
-    public String insert(@Validated @RequestBody Shop shop) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", required = true),
+            @ApiImplicitParam(name = "content", required = true)
+    })
+    public String insert(Shop shop) {
         return shopService.insert(shop);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation("更新店铺信息")
-    public String update(@Validated @RequestBody Shop shop) {
+    @ApiImplicitParam(name = "id", required = true)
+    public String update( Shop shop) {
         return shopService.update(shop);
     }
 

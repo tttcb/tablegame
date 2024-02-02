@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDetail {
     @ApiModelProperty("响应结果")
-    public OrderCommodity orderCommodity;
+    private OrderCommodity orderCommodity;
 
 }
