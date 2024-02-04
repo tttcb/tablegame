@@ -29,3 +29,5 @@ secure:
       - /v3/api-docs/**
       - /webjars/**
       - /doc.html/**
+      - /guiguohui/commodity/loadImage/**
+      - /**

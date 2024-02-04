@@ -34,6 +34,14 @@ public class ShopController {
         return shopService.search(shopName,pageIndex,pageSize);
     }
 
+    @RequestMapping(value = "/shopDetail", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation("店铺详情")
+    public Shop shopDetail(
+            @RequestParam(value = "userId", required = false) String userId) {
+        return shopService.shopDetail(userId);
+    }
+
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新增店铺")

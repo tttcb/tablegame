@@ -89,6 +89,19 @@ public class ShopServiceImpl implements ShopService {
         return "删除店铺成功";
     }
 
+    @Override
+    public Shop shopDetail(String userId) {
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status", COMMODITY_ACTIVE);
+        if (userId != null) {
+            queryWrapper.like("user_id", userId);
+        }
+        Shop result = shopMapper.selectOne(queryWrapper);
+        if (result == null){
+         return Shop.builder().content("false").build();
+        }
+        return result;
+    }
 
 
 }

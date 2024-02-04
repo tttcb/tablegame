@@ -11,15 +11,15 @@
                 name like #{commodityName}
             </if>
             <if test ="commodityType != null and commodityType != ''">
-                tag = #{commodityType}
+                and tag = #{commodityType}
             </if>
             <if test ="commoditySeason != null and commoditySeason != ''">
-                season = #{commoditySeason}
+                and  season = #{commoditySeason}
             </if>
             <if test ="commodityMaxPrice != null and commodityMaxPrice != ''">
-                price &lt; #{commodityMaxPrice} and price &gt; #{commodityMinPrice}
+               and price &lt; #{commodityMaxPrice} and price &gt; #{commodityMinPrice}
             </if>
-                and status = 1
+               and status = 1
         </where>
         order by id desc
     </select>

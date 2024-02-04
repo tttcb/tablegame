@@ -69,7 +69,7 @@ public class NoticeServiceImpl implements NoticeService {
             throw new IllegalArgumentException("userid cannot be null");
         }
         QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userid);
+        queryWrapper.eq("user_id", userid).or().eq("user_id",0);
         queryWrapper.ne("status", NOTICE_DELETE);
         List<Notice> data = noticeMapper.selectList(queryWrapper);
         PageHelper<Notice> result = new PageHelper<>(0,pageSize, pageIndex,data);
