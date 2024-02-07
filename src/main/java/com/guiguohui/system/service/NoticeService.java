@@ -18,7 +18,7 @@ public interface NoticeService {
 
     String alreadly(Integer id);
 
-    PageHelper<Notice> queryAll(Integer pageIndex, Integer pageSize);
+    PageHelper<Notice> queryAll(Integer userId,Integer pageIndex, Integer pageSize);
 
     Notice queryById(Integer id);
 }

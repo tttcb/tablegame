@@ -5,13 +5,16 @@
 <mapper namespace="com.guiguohui.system.mapper.CommodityMapper">
 
     <select id="search" resultType="com.guiguohui.system.domain.dto.Commodity">
-        select id,name,shop_id,company,price,season,weight,producer,content,stock,tag,status from commodity
+        select id,name,shop_id,company,price,season,weight,producer,content,stock,tag,status,discount,discount_price from commodity
         <where>
             <if test ="commodityName != null and commodityName != ''">
                 name like #{commodityName}
             </if>
             <if test ="commodityType != null and commodityType != ''">
                 and tag = #{commodityType}
+            </if>
+            <if test ="shopId != null and shopId != ''">
+                and shop_id = #{shopId}
             </if>
             <if test ="commoditySeason != null and commoditySeason != ''">
                 and  season = #{commoditySeason}

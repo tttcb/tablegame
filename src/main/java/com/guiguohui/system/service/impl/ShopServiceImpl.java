@@ -90,11 +90,14 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop shopDetail(String userId) {
+    public Shop shopDetail(String userId,String shopId) {
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
         if (userId != null) {
-            queryWrapper.like("user_id", userId);
+            queryWrapper.eq("user_id", userId);
+        }
+        if (shopId != null) {
+            queryWrapper.eq("id", shopId);
         }
         Shop result = shopMapper.selectOne(queryWrapper);
         if (result == null){

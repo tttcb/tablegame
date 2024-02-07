@@ -10,34 +10,32 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("criticize")
-public class Criticize {
+@TableName("address")
+public class Address {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private String id;
+
+    @TableField(value = "recipient")
+    @ApiModelProperty("收件人")
+    private String recipient;
+
+    @TableField(value = "phone")
+    @ApiModelProperty("电话号码")
+    private String phone;
+
+    @TableField(value = "address")
+    @ApiModelProperty("地址")
+    private String address;
 
     @TableField(value = "user_id")
     private Integer userId;
 
-    @TableField(value = "content")
-    private String content;
-
     @TableField(value = "status")
-    @ApiModelProperty("状态(无需填写)")
+    @ApiModelProperty("状态")
     private Integer status;
-
-    @TableField(value = "order_id")
-    @ApiModelProperty("商品ID")
-    private Integer orderId;
-
-    @TableField(value = "criticize_id")
-    @ApiModelProperty("回复评论的ID")
-    private Integer criticizeId;
-
 }

@@ -30,4 +30,3 @@ secure:
       - /webjars/**
       - /doc.html/**
       - /guiguohui/commodity/loadImage/**
-      - /**

@@ -12,5 +12,5 @@ import java.util.List;
 @Mapper
 public interface CommodityMapper extends BaseMapper<Commodity> {
 
-    List<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason);
+    List<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason,Integer shopId);
 }

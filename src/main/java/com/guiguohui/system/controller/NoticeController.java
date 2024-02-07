@@ -31,9 +31,10 @@ public class NoticeController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有通知")
-    public PageHelper<Notice> queryAll(@RequestParam(value = "pageIndex") Integer pageIndex,
+    public PageHelper<Notice> queryAll( @RequestParam(value = "userId") Integer userId,
+            @RequestParam(value = "pageIndex") Integer pageIndex,
                                        @RequestParam(value = "pageSize") Integer pageSize) {
-        return noticeService.queryAll(pageIndex, pageSize);
+        return noticeService.queryAll(userId,pageIndex, pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)

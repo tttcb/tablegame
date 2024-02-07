@@ -3,6 +3,7 @@ package com.guiguohui.system.controller;
 import com.guiguohui.system.common.PageHelper;
 import com.guiguohui.system.common.addUser;
 import com.guiguohui.system.common.updateUser;
+import com.guiguohui.system.domain.dto.Address;
 import com.guiguohui.system.domain.dto.User;
 import com.guiguohui.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -40,7 +41,7 @@ public class UserController {
                                      @RequestParam(value = "role", required = false) String role,
                                      @RequestParam(value = "pageIndex") Integer pageIndex,
                                      @RequestParam(value = "pageSize") Integer pageSize) {
-        return userService.queryAll(username,role, pageIndex, pageSize);
+        return userService.queryAll(username, role, pageIndex, pageSize);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
@@ -63,6 +64,45 @@ public class UserController {
     public String add(User user) {
         return userService.add(user);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
+    @ApiOperation("新增收货地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "recipient", required = true),
+            @ApiImplicitParam(name = "address", required = true),
+            @ApiImplicitParam(name = "userId", required = true),
+            @ApiImplicitParam(name = "phone", required = true)
+    })
+    public String addAddress(Address address) {
+        return userService.addAddress(address);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/queryAddress", method = RequestMethod.GET)
+    @ApiOperation("查看收货地址")
+    public PageHelper<Address> queryAddress(@RequestParam(value = "userId",required = false) Integer userId,
+                                            @RequestParam(value = "id",required = false) Integer id,
+                                            @RequestParam(value = "pageIndex") Integer pageIndex,
+                                            @RequestParam(value = "pageSize") Integer pageSize) {
+        return userService.queryAddress(userId, id,pageIndex,pageSize);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/updateAddress", method = RequestMethod.POST)
+    @ApiOperation("修改收货地址")
+    public String updateAddress(Address address) {
+        return userService.updateAddress(address);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
+    @ApiOperation("删除收货地址")
+    public String deleteAddress(@RequestParam(value = "addressId",required = false) Integer addressId) {
+        return userService.deleteAddress(addressId);
+    }
+
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody

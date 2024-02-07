@@ -35,9 +35,10 @@ public class OrderController {
     @ResponseBody
     @ApiOperation("用户查看订单")
     public PageHelper<Order> queryByUserId(@RequestParam("userId") Integer userId,
+                                           @RequestParam(value = "status",required = false) Integer status,
                                            @RequestParam(value = "pageIndex") Integer pageIndex,
                                            @RequestParam(value = "pageSize") Integer pageSize) {
-        return orderService.queryByUserId(userId, pageIndex, pageSize);
+        return orderService.queryByUserId(userId,status, pageIndex, pageSize);
     }
 
     /*    @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -51,8 +52,8 @@ public class OrderController {
     @ApiOperation("结算购物车")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "payWay", required = true),
-            @ApiImplicitParam(name = "address", required = true),
-            @ApiImplicitParam(name = "totalPrice", required = true)
+            @ApiImplicitParam(name = "totalPrice", required = true),
+            @ApiImplicitParam(name = "userId", required = true)
     })
     public String insert(Order order) throws ParseException {
         return orderService.insert(order);
@@ -101,6 +102,12 @@ public class OrderController {
                                          orderCommodityId, @RequestParam("count") Integer count) {
         return orderService.updateGouWuChe(orderCommodityId, count);
     }
-
+    @RequestMapping(value = "/updateGouWuCheAddress", method = RequestMethod.PUT)
+    @ResponseBody
+    @ApiOperation("修改购物车商品收货地址")
+    public String updateGouWuCheAddress(@RequestParam("orderCommodityId") Integer
+                                         orderCommodityId, @RequestParam("addressId") Integer addressId) {
+        return orderService.updateGouWuCheAddress(orderCommodityId, addressId);
+    }
 
 }

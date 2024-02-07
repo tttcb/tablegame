@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderService {
 
 
-    PageHelper<Order> queryByUserId(Integer userId,Integer pageIndex, Integer pageSize);
+    PageHelper<Order> queryByUserId(Integer userId,Integer status,Integer pageIndex, Integer pageSize);
 
     String delete(Integer id);
 
@@ -29,6 +29,8 @@ public interface OrderService {
     List<OrderCommodity> queryGouWuChe(Integer userId);
 
     String updateGouWuChe(Integer orderCommodityId,Integer count);
+
+    String updateGouWuCheAddress(Integer orderCommodityId,Integer addressId);
 
     Void addGouWuChe(Integer userId);
 }

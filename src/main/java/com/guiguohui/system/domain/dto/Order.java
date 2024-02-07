@@ -1,7 +1,6 @@
 package com.guiguohui.system.domain.dto;
 
 
-import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -12,9 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,9 +28,6 @@ public class Order {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "address")
-    @ApiModelProperty("收货地址")
-    private String address;
 
     @TableField(value = "user_id")
     private Integer userId;
@@ -42,7 +37,7 @@ public class Order {
     private Integer payWay;
 
     @TableField(value = "status")
-    @ApiModelProperty("状态(无需填写)")
+    @ApiModelProperty("状态(待付款 1/待发货 2/待收货3/已完成 5)")
     private Integer status ;
 
     @TableField(value = "price")

@@ -43,5 +43,5 @@ public interface ShopService {
      */
     String delete(Integer id);
 
-    Shop shopDetail(String userId);
+    Shop shopDetail(String userId,String shopId);
 }

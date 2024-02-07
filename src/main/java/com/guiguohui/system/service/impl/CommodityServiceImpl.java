@@ -30,14 +30,14 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityMapper commodityMapper;
 
 
-    public PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason, Integer pageIndex, Integer pageSize) {
+    public PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason,Integer shopId, Integer pageIndex, Integer pageSize) {
         if (commodityName != null) {
             commodityName = "%" + commodityName + "%";
         }
         if (commodityMinPrice == null) {
             commodityMaxPrice = null;
         }
-        List<Commodity> data = commodityMapper.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason);
+        List<Commodity> data = commodityMapper.search(commodityName, commodityType, commodityMaxPrice, commodityMinPrice, commoditySeason,shopId);
         PageHelper<Commodity> result = new PageHelper<>(0, pageSize, pageIndex, data);
         result.init();
         return result;
@@ -45,7 +45,7 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public PageHelper<Commodity> queryAll() {
-        return search(null, null, null, null, null, 1, 100);
+        return search(null, null, null, null, null, null,1, 100);
     }
 
 

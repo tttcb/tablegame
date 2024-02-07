@@ -28,13 +28,12 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
     @Override
-    public PageHelper<Criticize> queryAll(Integer commodityId,Integer pageIndex, Integer pageSize) {
+    public PageHelper<Criticize> queryAll(Integer orderId, Integer pageIndex, Integer pageSize) {
         QueryWrapper<Criticize> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", COMMODITY_ACTIVE);
-        queryWrapper.eq("criticize_id",null);
-        queryWrapper.eq("commodity_id",commodityId);
+        queryWrapper.eq("order_id", orderId).orderByAsc("id");
         List<Criticize> data = criticizeMapper.selectList(queryWrapper);
-        PageHelper<Criticize> result = new PageHelper<>(0,pageSize, pageIndex,data);
+        PageHelper<Criticize> result = new PageHelper<>(0, pageSize, pageIndex, data);
         result.init();
         return result;
     }
@@ -42,23 +41,22 @@ public class CriticizeServiceImpl implements CriticizeService {
     @Override
     public List<Criticize> queryById(Integer criticizeId) {
         QueryWrapper<Criticize> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", criticizeId).or().eq("criticize_id",criticizeId).orderByDesc("id");
+        queryWrapper.eq("id", criticizeId).or().eq("criticize_id", criticizeId).orderByDesc("id");
         return criticizeMapper.selectList(queryWrapper);
     }
 
 
-
     @Override
-    public String insert(String content,Integer commodityId) {
+    public String insert(String content, Integer orderId) {
         Integer userid = SecurityContext.getUserId();
         if (userid == null) {
             throw new IllegalArgumentException("userid cannot be null");
         }
         Integer result = criticizeMapper.insert(Criticize.builder()
-                        .content(content)
-                        .userId(userid)
-                        .commodityId(commodityId)
-                        .status(COMMODITY_ACTIVE)
+                .content(content)
+                .userId(userid)
+                .orderId(orderId)
+                .status(COMMODITY_ACTIVE)
                 .build());
         if (result.equals(1)) {
             return "新增评价成功";
@@ -68,7 +66,7 @@ public class CriticizeServiceImpl implements CriticizeService {
     }
 
     @Override
-    public String update(String content,Integer criticizeId) {
+    public String update(String content, Integer criticizeId) {
         QueryWrapper<Criticize> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", criticizeId);
         queryWrapper.eq("status", COMMODITY_ACTIVE);
@@ -100,13 +98,14 @@ public class CriticizeServiceImpl implements CriticizeService {
     }
 
     @Override
-    public String reply(String content,Integer criticizeId) {
-         Integer userid = SecurityContext.getUserId();
+    public String reply(String content, Integer criticizeId) {
+        Integer userid = SecurityContext.getUserId();
         if (userid == null) {
             throw new IllegalArgumentException("userid cannot be null");
         }
         Integer result = criticizeMapper.insert(Criticize.builder()
                 .content(content)
+                .orderId(criticizeMapper.selectById(criticizeId).getOrderId())
                 .userId(userid)
                 .criticizeId(criticizeId)
                 .status(COMMODITY_ACTIVE)

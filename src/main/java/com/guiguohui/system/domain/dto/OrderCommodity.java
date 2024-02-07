@@ -29,6 +29,15 @@ public class OrderCommodity {
     @ApiModelProperty("商品ID")
     private Integer commodityId;
 
+
+    @TableField(value = "address_id")
+    @ApiModelProperty("收货地址id")
+    private String addressId;
+
+    @ApiModelProperty("收货地址详情")
+    @TableField(exist = false)
+    private Address address;
+
     @TableField(value = "order_id")
     @ApiModelProperty("订单ID")
     private Integer orderId;
@@ -47,6 +56,6 @@ public class OrderCommodity {
 
     @TableField(value = "status")
     @ApiModelProperty("状态(无需填写)")
-    private Integer status ;
+    private Integer status;
 
 }

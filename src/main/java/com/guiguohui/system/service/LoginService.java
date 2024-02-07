@@ -53,8 +53,8 @@ public class LoginService {
     public User getAdminByUsername(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_name", username);
+        queryWrapper.eq("status", 1);
         List<User> usersList = userMapper.selectList(queryWrapper);
-
         if (usersList != null && usersList.size() > 0) {
             return usersList.get(0);
         }
@@ -82,7 +82,7 @@ public class LoginService {
             UserDetails userDetails = loadUserByUsername(username);
             // 验证密码
             System.out.println(passwordEncoder.encode(password));
-            if (password == userDetails.getPassword()) {
+            if (passwordEncoder.encode(password).equals(userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
             // 返回 JWT

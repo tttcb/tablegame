@@ -38,8 +38,9 @@ public class ShopController {
     @ResponseBody
     @ApiOperation("店铺详情")
     public Shop shopDetail(
-            @RequestParam(value = "userId", required = false) String userId) {
-        return shopService.shopDetail(userId);
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "shopId", required = false) String shopId) {
+        return shopService.shopDetail(userId,shopId);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

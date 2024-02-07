@@ -63,13 +63,11 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public PageHelper<Notice> queryAll(Integer pageIndex, Integer pageSize) {
-        Integer userid = SecurityContext.getUserId();
-        if (userid == null) {
-            throw new IllegalArgumentException("userid cannot be null");
-        }
+    public PageHelper<Notice> queryAll(Integer userId,Integer pageIndex, Integer pageSize) {
         QueryWrapper<Notice> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", userid).or().eq("user_id",0);
+        if (userId != null) {
+            queryWrapper.eq("user_id", userId).or().eq("user_id",0);
+        }
         queryWrapper.ne("status", NOTICE_DELETE);
         List<Notice> data = noticeMapper.selectList(queryWrapper);
         PageHelper<Notice> result = new PageHelper<>(0,pageSize, pageIndex,data);

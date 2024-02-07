@@ -19,5 +19,7 @@ public class SecurityContext {
     public static String getPassword() {
         return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getPassword();
     }
-
+    public static String getRole() {
+        return ((AdminUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getRole();
+    }
 }

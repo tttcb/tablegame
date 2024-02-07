@@ -70,4 +70,12 @@ public class Commodity {
     @ApiModelProperty("状态(无需填写)")
     private Integer status;
 
+    @TableField(value = "discount")
+    @ApiModelProperty("是否折扣，默认0（不折扣）,1为折扣")
+    private Integer discount ;
+
+    @TableField(value = "discount_price")
+    @ApiModelProperty("折扣价")
+    private Double discountPrice;
+
 }

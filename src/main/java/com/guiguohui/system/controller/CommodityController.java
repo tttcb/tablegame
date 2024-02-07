@@ -36,10 +36,11 @@ public class CommodityController {
             @RequestParam(value = "commodityMaxPrice", required = false) Integer commodityMaxPrice,
             @RequestParam(value = "commodityMinPrice", required = false) Integer commodityMinPrice,
             @RequestParam(value = "commodityseason", required = false) Integer commoditySeason,
+            @RequestParam(value = "shopId", required = false) Integer shopId,
             @RequestParam(value = "pageIndex") Integer pageIndex,
             @RequestParam(value = "pageSize") Integer pageSize
             ) {
-        return commodityService.search(commodityName, commoditytag, commodityMaxPrice, commodityMinPrice, commoditySeason,pageIndex,pageSize);
+        return commodityService.search(commodityName, commoditytag, commodityMaxPrice, commodityMinPrice, commoditySeason,shopId,pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)

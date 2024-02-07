@@ -22,24 +22,24 @@ public class CriticizeController {
     @RequestMapping(value = "/queryAll", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("查询所有评论")
-    public PageHelper<Criticize> queryAll(@RequestParam(value = "commodityId")Integer commodityId,
+    public PageHelper<Criticize> queryAll(@RequestParam(value = "orderId")Integer orderId,
                                           @RequestParam(value = "pageIndex") Integer pageIndex,
                                           @RequestParam(value = "pageSize") Integer pageSize) {
-        return criticizeService.queryAll(commodityId,pageIndex,pageSize);
+        return criticizeService.queryAll(orderId,pageIndex,pageSize);
     }
 
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation("根据评论ID查询")
-    public List<Criticize> queryById(Integer criticizeId) {
-        return criticizeService.queryById(criticizeId);
+    public List<Criticize> queryById(Integer id) {
+        return criticizeService.queryById(id);
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation("新增评论")
-    public String insert(@RequestParam String content,@RequestParam Integer commodityId) {
-        return criticizeService.insert(content,commodityId);
+    public String insert(@RequestParam String content,@RequestParam Integer id) {
+        return criticizeService.insert(content,id);
     }
 
     @RequestMapping(value = "/reply", method = RequestMethod.POST)

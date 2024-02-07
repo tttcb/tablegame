@@ -19,7 +19,7 @@ public interface CommodityService {
      * @param
      * @return
      */
-    PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason,Integer pageIndex, Integer pageSize);
+    PageHelper<Commodity> search(String commodityName, String commodityType, Integer commodityMaxPrice, Integer commodityMinPrice, Integer commoditySeason,Integer shopId,Integer pageIndex, Integer pageSize);
 
     PageHelper<Commodity> queryAll();
     /**

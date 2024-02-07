@@ -6,9 +6,9 @@ import com.guiguohui.system.domain.dto.Criticize;
 import java.util.List;
 
 public interface CriticizeService {
-    PageHelper<Criticize> queryAll(Integer commodityId,Integer pageIndex, Integer pageSize);
+    PageHelper<Criticize> queryAll(Integer orderId,Integer pageIndex, Integer pageSize);
 
-    String insert(String content,Integer commodityId);
+    String insert(String content,Integer orderId);
 
     String update(String content,Integer criticizeId);
 
