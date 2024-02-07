@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         if (userId == null) {
             return "用户ID不能为空";
         }
-        queryWrapper.eq("Id", userId);
+        queryWrapper.eq("id", userId);
         if (userMapper.selectById(userId) == null) {
             return "用户不存在";
         }
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String modify(User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Id", user.getId());
+        queryWrapper.eq("id", user.getId());
         queryWrapper.eq("status", USER_ACTIVE);
         if (userMapper.selectById(user.getId()) == null) {
             return "用户不存在";
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String resetPassWord(Integer userId, String password) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Id", userId);
+        queryWrapper.eq("id", userId);
         queryWrapper.eq("status", USER_ACTIVE);
         if (userMapper.selectById(userId) == null) {
             return "用户不存在";
@@ -197,7 +197,7 @@ public class UserServiceImpl implements UserService {
         if (addressId == null) {
             return "ID不能为空";
         }
-        queryWrapper.eq("Id", addressId);
+        queryWrapper.eq("id", addressId);
         if (addressMapper.selectById(addressId) == null) {
             return "地址Id不存在";
         }
